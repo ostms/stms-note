@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pug-vue": "pug ./@Vue --hierarchy -o ./@Vue -P -w",
-    "pug-doc": "pug ./@pug --hierarchy -o ./@pug -P -w"
+    "vue-watch": "pug ./@Vue --hierarchy -o ./@Vue -P -w",
+    "pug-watch": "pug ./@pug --hierarchy -o ./@pug -P -w"
   },
   "keywords": [],
   "author": "",

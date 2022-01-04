@@ -1,15 +1,25 @@
+%logofont
+	font-family: 'M PLUS 1 Code', monospace
+
 html
 	font-size: 62.5%
 
 h1,h2,h3,h4,h5,h6
 	margin: 0
 h1
+	@extend %logofont
 	width: 100%
 	text-align: center
 	margin-bottom: 1rem
 h2
 	font-size: 1.6rem
 	text-align: center
+a
+	color: hsl(30, 50%, 40%)
+	text-decoration: none
+	&:hover
+		color: hsl(30, 55%, 45%)
+		text-decoration: underline
 
 body
 	color: #444
@@ -37,6 +47,11 @@ section
 
 .more-sec
 	display: none
+
+footer
+	@extend %logofont
+	text-align: center
+	padding: 1.6rem
 
 pre
 	tab-size: 2
