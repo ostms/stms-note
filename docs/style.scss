@@ -1,0 +1,81 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+// ------------------------------------------------------------
+// 要素スタイル
+// ------------------------------------------------------------
+a {
+	color: hsl(30, 50%, 40%);
+	&:hover {
+		color: hsl(30, 55%, 45%);
+		text-decoration: none;
+	}
+}
+p {
+	margin: 1em 0;
+}
+h1 {
+	font-family: "M PLUS 1 Code", monospace;
+}
+dt {
+	font-size: 1.2em;
+	font-weight: 600;
+}
+dd.desc {
+	font-size: 0.9em;
+}
+
+// ------------------------------------------------------------
+// ブロックスタイル
+// ------------------------------------------------------------
+body {
+	color: #444;
+	background: hsl(30, 10%, 90%);
+	font-family: "Murecho", sans-serif;
+}
+
+.wrapper {
+	height: 70vh;
+	margin: 5vh 0 25vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+header {
+	padding: 2em;
+	text-align: center;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	div {
+		background: #fff;
+		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+		border-radius: 5px;
+		padding: 1.5em;
+	}
+}
+
+footer {
+	width: 100%;
+	height: 20vh;
+	padding: 1em;
+	display: flex;
+	justify-content: center;
+	& > a {
+		display: inline-block;
+		margin: 0 1em;
+		transition: opacity 0.3s;
+		&:hover {
+			opacity: 0.6;
+		}
+	}
+}

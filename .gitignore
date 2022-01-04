@@ -1,2 +1,4 @@
 node_modules/
 Readme-JP/
+*.map
+package-lock.json
