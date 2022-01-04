@@ -1,9 +1,17 @@
+$f_size-base: 1.4rem;
+$f_size-h1: 3rem;
+$f_size-link: 1.9rem;
+$f_size-desc: 1.3rem;
+
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+}
+html {
+	font-size: 62.5%;
 }
 
 // ------------------------------------------------------------
@@ -21,27 +29,32 @@ p {
 }
 h1 {
 	font-family: "M PLUS 1 Code", monospace;
+	font-size: $f_size-h1;
+}
+dl {
+	line-height: 1.8;
 }
 dt {
-	font-size: 1.2em;
+	font-size: $f_size-link;
 	font-weight: 600;
 }
 dd.desc {
-	font-size: 0.9em;
+	font-size: $f_size-desc;
 }
 
 // ------------------------------------------------------------
 // ブロックスタイル
 // ------------------------------------------------------------
 body {
-	color: #444;
+	color: #4a4444;
 	background: hsl(30, 10%, 90%);
+	font-size: $f_size-base;
 	font-family: "Murecho", sans-serif;
 }
 
 .wrapper {
-	height: 70vh;
-	margin: 5vh 0 25vh;
+	height: 60vh;
+	margin: 12vh 0 28vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -49,25 +62,25 @@ body {
 }
 
 header {
-	padding: 2em;
+	padding: 2em 2em 3.5em;
 	text-align: center;
 }
 
 main {
 	display: flex;
 	justify-content: center;
-	div {
-		background: #fff;
-		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-		border-radius: 5px;
-		padding: 1.5em;
-	}
+}
+.block-paper {
+	background: #fff;
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 2rem 3rem 3rem;
 }
 
 footer {
 	width: 100%;
-	height: 20vh;
-	padding: 1em;
+	height: 15vh;
+	padding: 4em;
 	display: flex;
 	justify-content: center;
 	& > a {

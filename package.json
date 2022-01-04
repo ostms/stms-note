@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "vue-watch": "pug ./@Vue --hierarchy -o ./@Vue -P -w",
-    "pug-watch": "pug ./@pug --hierarchy -o ./@pug -P -w"
+    "pug-watch": "pug ./@pug --hierarchy -o ./@pug -P -w",
+    "docs-watch": "pug ./docs/pug/src --hierarchy -o ./docs/pug -P -w"
   },
   "keywords": [],
   "author": "",
