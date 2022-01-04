@@ -1,0 +1,17 @@
+{
+  "name": "vsnotes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pug-vue": "pug ./@Vue --hierarchy -o ./@Vue -P -w",
+    "pug-doc": "pug ./@pug --hierarchy -o ./@pug -P -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jstransformer-escape-html": "^1.1.0",
+    "pug-cli": "github:pugjs/pug-cli#master"
+  }
+}

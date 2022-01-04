@@ -1,0 +1,80 @@
+-
+	var title = [
+		{title:'TOP',id:'#top'},
+		{title:'NEWS',id:'#news'},
+		{title:'ABOUT',id:'#about'},
+		{title:'STAFF',id:'#staff'}
+	]
+-
+	var news = [
+		{date:'2019.07.31',title:'挨拶'},
+		{date:'2019.08.01',title:'サイトリニューアルのお知らせ'},
+		{date:'2019.08.03',title:'夏のキャンペーンお知らせ　１'},
+		{date:'2019.08.04',title:'夏のキャンペーンお知らせ　２'},
+		{date:'2019.08.05',title:'夏のキャンペーンお知らせ　３'}
+	]
+-
+	var image = [
+		'../img/docker.png',
+		'../img/nginx.png',
+		'../img/python.png',
+		'../img/gopher.png',
+		'../img/react.png',
+		'../img/vue.png',
+		'../img/angular.png',
+		'../img/d.png'
+	]
+
+
+doctype html
+html(lang="ja")
+	head
+		meta(charset="UTF-8")
+		title SAMPLE
+		link(rel="stylesheet", href="../css/index.css")
+	body
+		header.header.float-menu
+			h1.header-title SAMPLE PAGE
+			nav
+				ul.menu
+					each item in title
+						li.menu-item
+							a(href=item['id']).menu-link #{item['title']}
+		main
+			section.hero.float-menu-target
+				h2.hero-title SAMPLE PAGE
+			section#news.container.container-ornament
+				h2.container-title
+					span NEWS
+				div.container-body
+					ul.news
+						each item in news
+							li.news-item
+								a.news-link
+									span.news-date #{item['date']}
+									span.news-title #{item['title']}
+			section#about.about
+				div.container
+					h2.container-title
+						span ABOUT
+					div.container-body
+						p このサイトはpupを使用して作成しています。PugはHTMLにおけるSassのようなものです。
+						p Pugを使うメリットとしては、通常のHTMLだけではできない共通化ができること。
+							| 開始タグと終了タグというものがないのでタグの閉じ忘れや閉じ間違いが起きないです。
+							| つまり、修正に強いHTMLを書くのに最適なツールということです。
+						p もともとはJade（ジェード）という名前で開発されていたが
+							| 商標の関係で2016年あたりにPugとして再リリースされました。
+						p 新しいPugは繰り返しや属性などの書き方が若干変更されています。
+							| なので、Jadeのコードを流用する場合は記法変更によるエラーに注意しましょう。
+						p Vue.jsのテンプレートをPugで書くこともできるので、記法を覚えておいて損はないはずです。
+			section#staff.container.container-ornament
+				h2.container-title
+					span STAFF
+				div.container-body
+					div.panel-group
+						each item in image
+							a.panel.panel-hover.panel-staff
+								img(src=item,width="225px",height="225px")
+
+		script(type="text/javascript",src="../node_modules/jquery/dist/jquery.min.js")
+		script(type="text/javascript",src="../js/index.js")
