@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tips | stms-note</title>
+    <meta name="description" content="JavaScriptの自分用記述メモです">
+    <meta property="og:title" content="JavaScript Tips">
+    <meta property="og:site_name" content="stms-note">
+    <meta property="og:url" content="https://ostms.github.io/stms-code">
+    <link rel="stylesheet" href="../assets/style.sass.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&amp;family=Murecho:wght@400;600&amp;display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/google-light.min.css">
+    <style>
+      .js::before{content:"js";background:#9C9;}
+      .html::before{content:"html";background:#C99;}
+      
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G8FCPF442B"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-G8FCPF442B');
+    </script>
+  </head>
+  <body>
+    <h1>JavaScript Tips</h1>
+    <main>
+      <section>
+        <h2>HTMLサンプル</h2>
+        <pre class="html"><code>&lt;div id=&quot;test&quot; class=&quot;element&quot;&gt;
+	&lt;a href=&quot;./&quot; target=&quot;_target&quot;&gt;リンク&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+      </section>
+      <section>
+        <h2>型</h2>
+        <h3>文字列(String)</h3>
+        <pre class="js"><code>var string = &quot;ハロー&quot;;
+string = 'ハロー';</code></pre>
+        <h3>整数(Number)</h3>
+        <pre class="js"><code>var number = 10;
+number = 8.7;</code></pre>
+        <h3>真偽値(Boolean)</h3>
+        <pre class="js"><code>var boolean = true;
+boolean = false;</code></pre>
+        <h3>配列(Array)</h3>
+        <pre class="js"><code>var array = [123, &quot;あいう&quot;];</code></pre>
+        <h3>オブジェクト(Object)</h3>
+        <pre class="js"><code>var object = {test: &quot;テスト&quot;};</code></pre>
+      </section>
+      <section>
+        <h2>式と演算子</h2>
+        <h3>等価演算子 <code>==</code> or <code>!=</code></h3>
+        <pre class="js"><code>1 == &quot;1&quot; // true
+0 == false // true
+&quot;a&quot; != &quot;a&quot; // false
+1 != &quot;1&quot; // false</code></pre>
+        <h3>OR<code>(||)</code> - 片方がtrueならばtrue</h3>
+        <pre class="js"><code>10 &lt; 20 || &quot;Hello&quot; == &quot;こんにちは&quot;
+// true</code></pre>
+        <h3>AND<code>(&&)</code> - 両方がtrueならばtrue</h3>
+        <pre class="js"><code>10 &lt; 20 &amp;&amp; &quot;Hello&quot; == &quot;Hello&quot;
+// true</code></pre>
+      </section>
+      <section>
+        <h2>属性値の操作</h2>
+        <h3>属性値を取得する</h3>
+        <pre class="js"><code>var element = document.getElementsByTagName(&quot;a&quot;);
+element[0].href
+element.className</code></pre>
+        <h3>取得.getAttribute</h3>
+        <pre class="js"><code>let att = element.getAttribute(&quot;class&quot;);</code></pre>
+        <h3>属性値を設定する</h3>
+        <pre class="js"><code>element.属性名 = &quot;value&quot;
+element.href = &quot;index.html&quot;
+element.className = &quot;wrapper&quot;;</code></pre>
+        <h3>設定.setAttribute</h3>
+        <pre class="js"><code>element.setAttribute(&quot;class&quot;, &quot;wrapper&quot;);</code></pre>
+      </section>
+      <section>
+        <h2>要素の追加</h2>
+        <h3>親要素の最後</h3>
+        <pre class="js"><code>親.appendChild(add)
+親.insertBefore(add, null)</code></pre>
+        <h3>指定した要素の前</h3>
+        <pre class="js"><code>親.insertBefore(add, 指定要素)</code></pre>
+        <h3>指定した要素の後</h3>
+        <pre class="js"><code>親.insertBefore(add, 指定要素.nextSibling)</code></pre>
+        <h3>親要素の最初</h3>
+        <pre class="js"><code>親/insertBefore(add, 親.firstChild)</code></pre>
+      </section>
+      <section>
+        <h2>要素の削除</h2>
+        <pre class="js"><code>element.remove();
+親.removeChild(指定);</code></pre>
+      </section>
+      <section>
+        <h2>要素内テキストの操作</h2>
+        <h3>HTMLを含まない場合</h3>
+        <pre class="js"><code>element.textContent //取得
+element.textContent =&quot;文字列の設定&quot;</code></pre>
+        <h3>HTMLタグを含む文字列</h3>
+        <pre class="js"><code>element.innerHTML //取得
+document.createElement(&quot;p&quot;);
+document.createTextNode(&quot;テスト&quot;);
+
+tag.appendChild(text)</code></pre>
+      </section>
+      <section>
+        <h2>classの操作</h2>
+        <h3>新しいclass名を追加</h3>
+        <pre class="js"><code>element.classList.add(&quot;open&quot;);</code></pre>
+        <h3>class名を削除</h3>
+        <pre class="js"><code>element.classList.remove(&quot;open&quot;);</code></pre>
+        <h3>classの付与をトグル</h3>
+        <pre class="js"><code>element.classList.toggle(&quot;open&quot;);</code></pre>
+        <h3>class名を一括編集</h3>
+        <pre class="js"><code>element.className = element + &quot;_li&quot;
+// class=&quot;element_li&quot;</code></pre>
+      </section>
+      <section>
+        <h2>クリックイベント</h2>
+        <pre class="js"><code>let ボタン = document.getElementById(&quot;xxx&quot;);
+ボタン.addEventListener(&quot;click&quot;, 数);
+ボタン.addEventListener(&quot;click&quot;, ()=&gt;{処理});
+function 関数(){
+	クリック時の処理
+}</code></pre>
+      </section>
+    </main>
+  </body>
+  <footer><a href="../">stms-note</a></footer>
+  <div id="modal"></div>
+  <script>hljs.highlightAll();</script>
+  <script src="../assets/script.js"></script>
+</html>

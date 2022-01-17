@@ -1,0 +1,79 @@
+
+extends ../_layout.pug
+block pagetitle
+	- pagetitle ="JavaScript"
+block style
+	style.
+		.js::before{content:"js";background:#9C9;}
+		.html::before{content:"html";background:#C99;}
+
+block body
+	body
+		h1 #{pagetitle} Tips
+		main
+			section
+				h2 HTMLサンプル
+				pre.html: code= `<div id="test" class="element">\n\t<a href="./" target="_target">リンク</a>\n</div>`
+			section
+				h2 型
+				h3 文字列(String)
+				pre.js: code= `var string = "ハロー";\nstring = 'ハロー';`
+				h3 整数(Number)
+				pre.js: code= `var number = 10;\nnumber = 8.7;`
+				h3 真偽値(Boolean)
+				pre.js: code= `var boolean = true;\nboolean = false;`
+				h3 配列(Array)
+				pre.js: code= `var array = [123, "あいう"];`
+				h3 オブジェクト(Object)
+				pre.js: code= `var object = {test: "テスト"};`
+			section
+				h2 式と演算子
+				h3 等価演算子 #[code ==] or #[code !=]
+				pre.js: code= `1 == "1" // true\n0 == false // true\n"a" != "a" // false\n1 != "1" // false`
+				h3 OR#[code (||)] - 片方がtrueならばtrue
+				pre.js: code= `10 < 20 || "Hello" == "こんにちは"\n// true`
+				h3 AND#[code (&&)] - 両方がtrueならばtrue
+				pre.js: code= `10 < 20 && "Hello" == "Hello"\n// true`
+			section
+				h2 属性値の操作
+				h3 属性値を取得する
+				pre.js: code= `var element = document.getElementsByTagName("a");\nelement[0].href\nelement.className`
+				h3 取得.getAttribute
+				pre.js: code= `let att = element.getAttribute("class");`
+				h3 属性値を設定する
+				pre.js: code= `element.属性名 = "value"\nelement.href = "index.html"\nelement.className = "wrapper";`
+				h3 設定.setAttribute
+				pre.js: code= `element.setAttribute("class", "wrapper");`
+			section
+				h2 要素の追加
+				h3 親要素の最後
+				pre.js: code= `親.appendChild(add)\n親.insertBefore(add, null)`
+				h3 指定した要素の前
+				pre.js: code= `親.insertBefore(add, 指定要素)`
+				h3 指定した要素の後
+				pre.js: code= `親.insertBefore(add, 指定要素.nextSibling)`
+				h3 親要素の最初
+				pre.js: code= `親/insertBefore(add, 親.firstChild)`
+			section
+				h2 要素の削除
+				pre.js: code= `element.remove();\n親.removeChild(指定);`
+			section
+				h2 要素内テキストの操作
+				h3 HTMLを含まない場合
+				pre.js: code= `element.textContent //取得\nelement.textContent ="文字列の設定"`
+				h3 HTMLタグを含む文字列
+				pre.js: code= `element.innerHTML //取得\ndocument.createElement("p");\ndocument.createTextNode("テスト");\n\ntag.appendChild(text)`
+
+			section
+				h2 classの操作
+				h3 新しいclass名を追加
+				pre.js: code= `element.classList.add("open");`
+				h3 class名を削除
+				pre.js: code= `element.classList.remove("open");`
+				h3 classの付与をトグル
+				pre.js: code= `element.classList.toggle("open");`
+				h3 class名を一括編集
+				pre.js: code= `element.className = element + "_li"\n// class="element_li"`
+			section
+				h2 クリックイベント
+				pre.js: code= `let ボタン = document.getElementById("xxx");\nボタン.addEventListener("click", 数);\nボタン.addEventListener("click", ()=>{処理});\nfunction 関数(){\n\tクリック時の処理\n}`

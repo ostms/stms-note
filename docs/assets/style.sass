@@ -1,19 +1,27 @@
 %logofont
 	font-family: 'M PLUS 1 Code', monospace
+$fd: .4s
 
 html
 	font-size: 62.5%
 
 h1,h2,h3,h4,h5,h6
 	margin: 0
+	text-align: center
 h1
 	@extend %logofont
 	width: 100%
-	text-align: center
 	margin-bottom: 1rem
 h2
 	font-size: 1.6rem
-	text-align: center
+h3
+	font-size: 1.2rem
+	text-align: left
+	&::before
+		content: "－"
+	& + pre
+		margin: 0 auto .5em
+
 a
 	color: hsl(30, 50%, 40%)
 	text-decoration: none
@@ -42,6 +50,7 @@ section
 	padding: .5em
 	margin: 1em .5em
 	min-width: 15rem
+	cursor: pointer
 	&:first-of-type
 		margin-top: 0
 
@@ -62,16 +71,8 @@ pre
 		font-size: 1rem
 		padding: .1em .5em
 		position: absolute
-		top: -.5rem
+		top: -.7rem
 		right: 0
-	&:nth-of-type(1)::before
-		content: "pug"
-		// background: #494
-		background: #9c9
-	&:nth-of-type(2)::before
-		content: "html"
-		// background: #944
-		background: #c99
 	code.hljs
 		padding: .5em 0 .5em 5% !important
 		background: #f4f3f3
@@ -98,3 +99,23 @@ code
 @include mq(400px)
 	main
 		column-count: 1
+
+// JSモーダル
+// ------------------------------------------------------------
+#modal
+	background: transparent
+	transition: background $fd, visibility $fd
+	visibility: hidden
+	width: 100vw
+	height: 100vh
+	position: fixed
+	top: 0
+	left: 0
+	&.open
+		background: rgba(10,4,0,.3)
+		visibility: visible
+	&>section
+		width: 60%
+		max-width: 102.4rem
+		box-shadow: none
+		margin: 20vh auto auto

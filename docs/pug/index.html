@@ -5,22 +5,23 @@
     <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pug Tips | stms-note</title>
-    <meta name="description" content="Pugの自分用記述メモです">
-    <meta property="og:title" content="Pug Tips">
+    <title>pug Tips | stms-note</title>
+    <meta name="description" content="pugの自分用記述メモです">
+    <meta property="og:title" content="pug Tips">
     <meta property="og:site_name" content="stms-note">
     <meta property="og:url" content="https://ostms.github.io/stms-code">
     <meta property="og:image" content="https://ostms.github.io/stms-note/pug/ogpthm.png">
-    <!-- Style-->
-    <link rel="stylesheet" href="src/style.sass.min.css">
-    <!-- Google Fonts-->
+    <link rel="stylesheet" href="../assets/style.sass.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&amp;family=Murecho:wght@400;600&amp;display=swap">
-    <!-- Highlight.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/google-light.min.css">
-    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <style>
+      .pug::before {content:"pug";background:#9c9;}
+      .html::before {content:"html";background:#c99;}
+      
+    </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G8FCPF442B"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -34,58 +35,58 @@
     <main>
       <section>
         <h2>タグとテキスト</h2>
-        <pre><code class="pug">p テキスト
+        <pre class="pug"><code>p テキスト
 ul: li リスト
 p あい#[strong う]えお</code></pre>
-        <pre><code class="html">&lt;p&gt;テキスト&lt;/p&gt;
+        <pre class="html"><code>&lt;p&gt;テキスト&lt;/p&gt;
 &lt;ul&gt;&lt;li&gt;リスト&lt;/li&gt;&lt;/ul&gt;
 &lt;p&gt;あい&lt;b&gt;う&lt;/b&gt;えお&lt;/p&gt;</code></pre>
       </section>
       <section>
         <h2>複数行テキスト</h2>
-        <pre><code class="pug">p
+        <pre class="pug"><code>p
 	| 複数行のテキスト
 	br
 	| インデントは自由</code></pre>
-        <pre><code class="html">&lt;p&gt;
+        <pre class="html"><code>&lt;p&gt;
 	複数行のテキスト&lt;br&gt;
 	インデントは自由
 &lt;/p&gt;</code></pre>
       </section>
       <section>
         <h2>クラスとID</h2>
-        <pre><code class="pug">p.test.red
+        <pre class="pug"><code>p.test.red
 h1#sitename</code></pre>
-        <pre><code class="html">&lt;P class=&quot;test red&quot;&gt;&lt;/p&gt;
+        <pre class="html"><code>&lt;P class=&quot;test red&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;sitename&quot;&gt;&lt;/h1&gt;</code></pre>
       </section>
       <section>
         <h2>divの省略</h2>
-        <pre><code class="pug">#app
+        <pre class="pug"><code>#app
 .test</code></pre>
-        <pre><code class="html">&lt;div id=&quot;app&quot;&gt;
+        <pre class="html"><code>&lt;div id=&quot;app&quot;&gt;
 &lt;div class=&quot;test&quot;&gt;</code></pre>
       </section>
       <section>
         <h2>エスケープ</h2>
-        <pre><code class="pug">code= '&lt;p&gt;あ&lt;/p&gt;\n&lt;i&gt;い&lt;/i&gt;'</code></pre>
-        <pre><code class="html">&lt;code&gt;&lt;p&gt;あ&lt;/p&gt;
+        <pre class="pug"><code>code= '&lt;p&gt;あ&lt;/p&gt;\n&lt;i&gt;い&lt;/i&gt;'</code></pre>
+        <pre class="html"><code>&lt;code&gt;&lt;p&gt;あ&lt;/p&gt;
 &lt;i&gt;い&lt;/i&gt;&lt;/code&gt;</code></pre>
       </section>
       <section>
         <h2>属性(プロパティ)</h2>
-        <pre><code class="pug">input(type=&quot;radio&quot;
+        <pre class="pug"><code>input(type=&quot;radio&quot;
 	name=&quot;test&quot;
 	checked)</code></pre>
-        <pre><code class="html">&lt;input type=&quot;radio&quot; name=&quot;test&quot; checked&gt;</code></pre>
+        <pre class="html"><code>&lt;input type=&quot;radio&quot; name=&quot;test&quot; checked&gt;</code></pre>
       </section>
       <section>
         <h2>scriptやstyle</h2>
-        <pre><code class="pug">style.
+        <pre class="pug"><code>style.
 	a {color: red}
 script.
 	let pug = &quot;Hello, pug!&quot;</code></pre>
-        <pre><code class="html">&lt;style&gt;
+        <pre class="html"><code>&lt;style&gt;
 	a {color: red}
 &lt;/style&gt;
 &lt;script&gt;
@@ -94,53 +95,54 @@ script.
       </section>
       <section>
         <h2>変数</h2>
-        <pre><code class="pug">- var pagename=&quot;ページ&quot;
+        <pre class="pug"><code>- var pagename=&quot;ページ&quot;
 
-title #{pagename}</code></pre>
-        <pre><code class="html">&lt;title&gt;ページ&lt;/title&gt;</code></pre>
+title #{pagename}
+img src=&quot;&quot;</code></pre>
+        <pre class="html"><code>&lt;title&gt;ページ&lt;/title&gt;</code></pre>
       </section>
       <section>
         <h2>変数:プロパティ</h2>
-        <pre><code class="pug">- var clsname=&quot;aaa&quot;
+        <pre class="pug"><code>- var clsname=&quot;aaa&quot;
 
 p(class=clsname)
 p(class=`&amp;{clsname}`)</code></pre>
-        <pre><code class="html">&lt;p class=&quot;aaa&quot;&gt;&lt;/p&gt;
+        <pre class="html"><code>&lt;p class=&quot;aaa&quot;&gt;&lt;/p&gt;
 &lt;p class=&quot;aaa&quot;&gt;&lt;/p&gt;</code></pre>
       </section>
       <section>
         <h2>for</h2>
-        <pre><code class="pug">- for (var x=0; x&lt;3; x++)
+        <pre class="pug"><code>- for (var x=0; x&lt;3; x++)
 
 li ナンバー#{x}</code></pre>
-        <pre><code class="html">&lt;li&gt;ナンバー0&lt;/li&gt;
+        <pre class="html"><code>&lt;li&gt;ナンバー0&lt;/li&gt;
 &lt;li&gt;ナンバー1&lt;/li&gt;
 &lt;li&gt;ナンバー2&lt;/li&gt;</code></pre>
       </section>
       <section>
         <h2>each</h2>
-        <pre><code class="pug">each value in
+        <pre class="pug"><code>each value in
  [&quot;HTML&quot;,&quot;CSS&quot;,&quot;JS&quot;]
 
 li #{value}</code></pre>
-        <pre><code class="html">&lt;li&gt;HTML&lt;/li&gt;
+        <pre class="html"><code>&lt;li&gt;HTML&lt;/li&gt;
 &lt;li&gt;CSS&lt;/li&gt;
 &lt;li&gt;JS&lt;/li&gt;</code></pre>
       </section>
       <section>
         <h2>if</h2>
-        <pre><code class="pug">- var name = &quot;うさ&quot;
+        <pre class="pug"><code>- var name = &quot;うさ&quot;
 if name==&quot;やぎ&quot;
 	p わたしはやぎです
 else if name==&quot;ヒツジ&quot;
 	p わたしはヒツジです
 else
 	p やぎでもヒツジでもない？</code></pre>
-        <pre><code class="html">&lt;p&gt;やぎでもヒツジでもない？&lt;/p&gt;</code></pre>
+        <pre class="html"><code>&lt;p&gt;やぎでもヒツジでもない？&lt;/p&gt;</code></pre>
       </section>
       <section>
         <h2>switch</h2>
-        <pre><code class="pug">- var name = &quot;うさ&quot;
+        <pre class="pug"><code>- var name = &quot;うさ&quot;
 case name
 	when &quot;やぎ&quot;
 		p わたしはやぎです
@@ -150,17 +152,48 @@ case name
 		break
 	default
 		p やぎでもヒツジでもない？</code></pre>
-        <pre><code class="html">&lt;p&gt;やぎでもヒツジでもない？&lt;/p&gt;</code></pre>
+        <pre class="html"><code>&lt;p&gt;やぎでもヒツジでもない？&lt;/p&gt;</code></pre>
       </section>
       <section>
         <h2>コメントアウト</h2>
-        <pre><code class="pug">// HTMLに出力される
+        <pre class="pug"><code>// HTMLに出力される
 
 //- pugのみのコメント</code></pre>
-        <pre><code class="html">&lt;!-- HTMLに出力される --&gt;</code></pre>
+        <pre class="html"><code>&lt;!-- HTMLに出力される --&gt;</code></pre>
+      </section>
+      <section>
+        <h2>include</h2>
+        <pre class="pug"><code>include assets/_header.pug</code></pre>
+      </section>
+      <section>
+        <h2>extends <a href="https://necosystem.hirokihomma.com/archives/121/#block3">🔗</a></h2>
+        <pre class="pug"><code>/* _layout.pug */
+body
+	block content
+		h1 デフォルトタイトル
+/* index.pug */
+extends _layout.pug
+block content
+	h1 サイト名</code></pre>
+        <pre class="html"><code>&lt;body&gt;
+	&lt;h1&gt;サイト名&lt;/h1&gt;
+&lt;/body&gt;</code></pre>
+      </section>
+      <section>
+        <h2>mixin</h2>
+        <pre class="pub"><code>mixin list(url,title)
+	ul.nav_list
+		li: a(href=`${url}`) #{title}
+
++list(&quot;./&quot;,HOME)</code></pre>
+        <pre class="html"><code>&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;./&quot;&gt;HOME&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
       </section>
     </main>
-    <footer><a href="../">stms-note</a></footer>
-    <script>hljs.highlightAll();</script>
   </body>
+  <footer><a href="../">stms-note</a></footer>
+  <div id="modal"></div>
+  <script>hljs.highlightAll();</script>
+  <script src="../assets/script.js"></script>
 </html>

@@ -1,0 +1,99 @@
+extends ../_layout.pug
+block pagetitle
+	- pagetitle = "pug"
+block ogpimg
+	- ogpimg = "pug/ogpthm.png"
+block style
+	style.
+		.pug::before {content:"pug";background:#9c9;}
+		.html::before {content:"html";background:#c99;}
+
+block body
+	body
+		h1 pug Tips
+		main
+			section
+				h2 タグとテキスト
+				pre.pug: code= 'p テキスト\nul: li リスト\np あい#[strong う]えお'
+				pre.html: code= "<p>テキスト</p>\n<ul><li>リスト</li></ul>\n<p>あい<b>う</b>えお</p>"
+
+			section
+				h2 複数行テキスト
+				pre.pug: code= 'p\n\t| 複数行のテキスト\n\tbr\n\t| インデントは自由'
+				pre.html: code= '<p>\n\t複数行のテキスト<br>\n\tインデントは自由\n</p>'
+
+			section
+				h2 クラスとID
+				pre.pug: code= 'p.test.red\nh1#sitename'
+				pre.html: code= '<P class="test red"></p>\n<h1 id="sitename"></h1>'
+
+			section
+				h2 divの省略
+				pre.pug: code
+					| #app
+					| .test
+				pre.html: code= '<div id="app">\n<div class="test">'
+
+			section
+				h2 エスケープ
+				pre.pug: code= "code= '<p>あ</p>\\n<i>い</i>'"
+				pre.html: code= '<code><p>あ</p>\n<i>い</i></code>'
+
+			section
+				h2 属性(プロパティ)
+				pre.pug: code= 'input(type="radio"\n\tname="test"\n\tchecked)'
+				pre.html: code= '<input type="radio" name="test" checked>'
+
+			section
+				h2 scriptやstyle
+				pre.pug: code= 'style.\n\ta {color: red}\nscript.\n\tlet pug = "Hello, pug!"'
+				pre.html: code= '<style>\n\ta {color: red}\n</style>\n<script>\n\tlet pug ="Hello, pug!"\n</script>'
+
+			section
+				h2 変数
+				pre.pug: code= '- var pagename="ページ"\n\ntitle #{pagename}\nimg src=""'
+				pre.html: code= '<title>ページ</title>'
+
+			section
+				h2 変数:プロパティ
+				pre.pug: code= '- var clsname="aaa"\n\np(class=clsname)\np(class=`&{clsname}`)'
+				pre.html: code= '<p class="aaa"></p>\n<p class="aaa"></p>'
+
+			section
+				h2 for
+				pre.pug: code= '- for (var x=0; x<3; x++)\n\nli ナンバー#{x}'
+				pre.html: code= '<li>ナンバー0</li>\n<li>ナンバー1</li>\n<li>ナンバー2</li>'
+
+			section
+				h2 each
+				pre.pug: code= 'each value in\n ["HTML","CSS","JS"]\n\nli #{value}'
+				pre.html: code= '<li>HTML</li>\n<li>CSS</li>\n<li>JS</li>'
+
+			section
+				h2 if
+				pre.pug: code= '- var name = "うさ"\nif name=="やぎ"\n\tp わたしはやぎです\nelse if name=="ヒツジ"\n\tp わたしはヒツジです\nelse\n\tp やぎでもヒツジでもない？'
+				pre.html: code= '<p>やぎでもヒツジでもない？</p>'
+
+			section
+				h2 switch
+				pre.pug: code= '- var name = "うさ"\ncase name\n\twhen "やぎ"\n\t\tp わたしはやぎです\n\t\tbreak\n\twhen "ヒツジ"\n\t\tp わたしはヒツジです\n\t\tbreak\n\tdefault\n\t\tp やぎでもヒツジでもない？'
+				pre.html: code= '<p>やぎでもヒツジでもない？</p>'
+
+			section
+				h2 コメントアウト
+				pre.pug: code= '// HTMLに出力される\n\n//- pugのみのコメント'
+				pre.html: code= '<!-- HTMLに出力される -->'
+
+			section
+				h2 include
+				pre.pug: code= 'include assets/_header.pug'
+
+			section
+				h2 extends #[a(href="https://necosystem.hirokihomma.com/archives/121/#block3") 🔗]
+				pre.pug: code= '/* _layout.pug */\nbody\n\tblock content\n\t\th1 デフォルトタイトル\n/* index.pug */\nextends _layout.pug\nblock content\n\th1 サイト名'
+				pre.html: code= '<body>\n\t<h1>サイト名</h1>\n</body>'
+
+			section
+				h2 mixin
+				pre.pub: code= 'mixin list(url,title)\n\tul.nav_list\n\t\tli: a(href=`${url}`) #{title}\n\n+list("./",HOME)'
+				pre.html: code= '<ul>\n\t<li><a href="./">HOME</a></li>\n</ul>'
