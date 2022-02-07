@@ -1,6 +1,17 @@
+mixin sitelink
+	ul.sitelink
+		li: a(href="../js/") JSTips
+		li: a(href="../pug") pugTips
 footer
+	+sitelink
 	a(href="../") stms-note
 
+nav#navigation
+	input(id="burger" type="checkbox")
+	label.menu-button(for="burger")
+		- for (var x=0; x<3; x++)
+			.menu-icon
+	ul#toc
+	+sitelink
+
 #modal
-script hljs.highlightAll();
-script(src="../assets/script.js")

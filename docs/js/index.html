@@ -19,7 +19,6 @@
     <style>
       .js::before{content:"js";background:#9C9;}
       .html::before{content:"html";background:#C99;}
-      
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G8FCPF442B"></script>
     <script>
@@ -30,29 +29,47 @@
     </script>
   </head>
   <body>
-    <h1>JavaScript Tips</h1>
+    <h1><a href="../">JavaScript Tips</a></h1>
+    <header><a href="#基本仕様">基本仕様</a><a href="#DOM操作">DOM操作</a><a href="#処理機能">処理機能</a>
+    </header>
     <main>
       <section>
-        <h2>HTMLサンプル</h2>
-        <pre class="html"><code>&lt;div id=&quot;test&quot; class=&quot;element&quot;&gt;
-	&lt;a href=&quot;./&quot; target=&quot;_target&quot;&gt;リンク&lt;/a&gt;
+        <h2>共通サンプル</h2>
+        <div class="sample">
+          <pre class="html"><code>&lt;div id=&quot;box&quot;&gt;
+	&lt;a href=&quot;./&quot; target=&quot;_target&quot; class=&quot;sample&quot;&gt;リンク&lt;/a&gt;
 &lt;/div&gt;</code></pre>
+          <pre class="js"><code>let 親 = document.getElementsByID('box');
+let 要素 = document.querySelector('.sample');</code></pre>
+        </div>
       </section>
       <section>
         <h2>型</h2>
         <h3>文字列(String)</h3>
-        <pre class="js"><code>var string = &quot;ハロー&quot;;
-string = 'ハロー';</code></pre>
+        <pre class="js"><code>let string = &quot;ハロー&quot;;
+		string = 'ハロー';</code></pre>
         <h3>整数(Number)</h3>
-        <pre class="js"><code>var number = 10;
-number = 8.7;</code></pre>
+        <pre class="js"><code>let number = 10;
+		number = 8.7;</code></pre>
         <h3>真偽値(Boolean)</h3>
-        <pre class="js"><code>var boolean = true;
-boolean = false;</code></pre>
+        <pre class="js"><code>let boolean = true;
+		boolean = false;</code></pre>
         <h3>配列(Array)</h3>
-        <pre class="js"><code>var array = [123, &quot;あいう&quot;];</code></pre>
+        <pre class="js"><code>let array = [123, &quot;あいう&quot;];
+		array[0]	// 123</code></pre>
+        <ul class="sample">
+          <li>空の配列型宣言は<code>変数名 = [];</code></li>
+          <li>配列の中身には インデックス番号(0始まり) が振られており、変数名[数値]でアクセスする。</li>
+        </ul>
         <h3>オブジェクト(Object)</h3>
-        <pre class="js"><code>var object = {test: &quot;テスト&quot;};</code></pre>
+        <pre class="js"><code>let object = {test: &quot;テスト&quot;};
+		object.test	// &quot;テスト&quot;
+		object['test']	// &quot;テスト&quot;</code></pre>
+        <ul class="sample">
+          <li>JSでは<b>関数もオブジェクト</b>である。<code>{ }</code>で囲まれてるものね。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#基本仕様">基本仕様</a>
+        </div>
       </section>
       <section>
         <h2>式と演算子</h2>
@@ -61,82 +78,234 @@ boolean = false;</code></pre>
 0 == false // true
 &quot;a&quot; != &quot;a&quot; // false
 1 != &quot;1&quot; // false</code></pre>
+        <div class="sample">
+          <ul>
+            <li>左と右が異なるケースは <code>!= (!==)</code> で指定する。</li>
+          </ul>
+        </div>
         <h3>OR<code>(||)</code> - 片方がtrueならばtrue</h3>
         <pre class="js"><code>10 &lt; 20 || &quot;Hello&quot; == &quot;こんにちは&quot;
 // true</code></pre>
         <h3>AND<code>(&&)</code> - 両方がtrueならばtrue</h3>
         <pre class="js"><code>10 &lt; 20 &amp;&amp; &quot;Hello&quot; == &quot;Hello&quot;
 // true</code></pre>
+        <div class="sample">
+          <h3>大なり小なり</h3>
+          <pre class="js"><code>8 &gt;  2 == true		|	 &quot;5&quot;&gt; 5 == true //型が違ってもtrueとなる
+3 &gt;= 3 == true</code></pre>
+        </div>
+        <div class="area-tag"><a class="tag" href="#基本仕様">基本仕様</a>
+        </div>
+      </section>
+      <section>
+        <h2>識別子のルール</h2>
+        <ul class="sample">
+          <li>JSでは「変数名」や「関数名」のことを<b>「識別子」</b>と呼ぶ。</li>
+        </ul>
+        <h3>使用できる文字</h3>
+        <pre><code class="language-javascript">・Unicode文字, アンダーバー(_), ドル記号($)
+・大文字と小文字は区別される</code></pre>
+        <h3>使用できない文字</h3>
+        <pre><code>・ハイフン(-), 1文字目に数字(0～9), 変数名にJSの予約語</code></pre>
+        <blockquote>
+          <h3>変数名、関数名のサンプル</h3>
+          <pre><code>- $(value) => { document.querySelector(value); }
+キャメルケース(ローワーキャメルケース)
+- userName,	myTotalScore2022
+パスカルケース(アッパーキャメルケース)
+- UserName,	MyTotalScore2022
+スネークケース
+- user_name,	my_total_score2022
+定数 (大文字+スネーク)
+- MAX_SIZE = 10;
+日本語も使用できる
+- 身長 = 180;	幅 * 高さ</code></pre>
+        </blockquote>
+        <div class="area-tag"><a class="tag" href="#基本仕様">基本仕様</a>
+        </div>
       </section>
       <section>
         <h2>属性値の操作</h2>
         <h3>属性値を取得する</h3>
-        <pre class="js"><code>var element = document.getElementsByTagName(&quot;a&quot;);
-element[0].href
-element.className</code></pre>
-        <h3>取得.getAttribute</h3>
-        <pre class="js"><code>let att = element.getAttribute(&quot;class&quot;);</code></pre>
+        <pre class="js"><code>要素.href	要素.src
+要素.className	// classはNameが付くので注意</code></pre>
         <h3>属性値を設定する</h3>
-        <pre class="js"><code>element.属性名 = &quot;value&quot;
-element.href = &quot;index.html&quot;
-element.className = &quot;wrapper&quot;;</code></pre>
-        <h3>設定.setAttribute</h3>
-        <pre class="js"><code>element.setAttribute(&quot;class&quot;, &quot;wrapper&quot;);</code></pre>
+        <pre class="js"><code>要素.属性名 = &quot;設定値&quot;
+要素.href = &quot;index.html&quot;
+要素.className = &quot;wrapper&quot;;</code></pre>
+        <ul class="sample">
+          <li>HTML要素は取得するとオブジェクト型になっているため、<code>.属性名</code>でそのまま値を扱うことができる</li>
+        </ul>
+        <h3>取得.getAttribute(<code class="modal">"属性名"</code>)</h3>
+        <pre class="js"><code>要素.getAttribute(&quot;class&quot;);</code></pre>
+        <h3>設定.setAttribute(<code class="modal">"属性名","設定値"</code>)</h3>
+        <pre class="js"><code>要素.setAttribute(&quot;class&quot;, &quot;wrapper&quot;);</code></pre>
+        <ul class="sample">
+          <li><code>get/setAttribute()</code>で操作することもできる</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#基本仕様">基本仕様</a>
+        </div>
       </section>
       <section>
         <h2>要素の追加</h2>
-        <h3>親要素の最後</h3>
-        <pre class="js"><code>親.appendChild(add)
-親.insertBefore(add, null)</code></pre>
+        <h3>親要素内の最後</h3>
+        <pre class="js"><code>親.appendChild(追加要素)
+親.insertBefore(追加要素, null)</code></pre>
         <h3>指定した要素の前</h3>
-        <pre class="js"><code>親.insertBefore(add, 指定要素)</code></pre>
+        <pre class="js"><code>親.insertBefore(追加要素, 指定要素)</code></pre>
         <h3>指定した要素の後</h3>
-        <pre class="js"><code>親.insertBefore(add, 指定要素.nextSibling)</code></pre>
+        <pre class="js"><code>親.insertBefore(追加要素, 指定要素.nextSibling)</code></pre>
         <h3>親要素の最初</h3>
-        <pre class="js"><code>親/insertBefore(add, 親.firstChild)</code></pre>
+        <pre class="js"><code>親.insertBefore(追加要素, 親.firstChild)</code></pre>
+        <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
+      </section>
+      <section>
+        <h2>要素の複製</h2>
+        <pre class="js"><code>let clone = 要素.cloneNode(true);</code></pre>
+        <div class="sample">
+          <h3>sample.html</h3>
+          <pre class="html"><code>&lt;body&gt;
+	&lt;img src=&quot;sample.jpg&quot;&gt;
+	&lt;div id=&quot;modal&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;</code></pre>
+          <h3>script.js</h3>
+          <pre class="js"><code>let modal = document.getElementById('modal'); //&lt;div id=&quot;modal&quot;&gt;
+let img = document.getElementsByTagName('img'); //&lt;img src=&quot;sample.jpg&quot;&gt;
+
+let cloneItem = img[0].cloneNode(true); //&lt;img src=&quot;sample.jpg&quot;&gt;
+
+modal.appendChild(cloneItem);
+//&lt;div id=&quot;modal&quot;&gt;
+//	&lt;img src=&quot;sample.jpg&quot;&gt;
+//&lt;/div&gt;</code></pre>
+          <ul>
+            <li>要素の取得、追加ではオリジナルの要素が消えてしまう（移動する）ため、モーダルに表示したいときなどは複製を使う</li>
+          </ul>
+        </div>
+        <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
       </section>
       <section>
         <h2>要素の削除</h2>
-        <pre class="js"><code>element.remove();
+        <pre class="js"><code>要素.remove();
 親.removeChild(指定);</code></pre>
+        <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
       </section>
       <section>
         <h2>要素内テキストの操作</h2>
         <h3>HTMLを含まない場合</h3>
-        <pre class="js"><code>element.textContent //取得
-element.textContent =&quot;文字列の設定&quot;</code></pre>
+        <pre class="js"><code>要素.textContent //取得
+要素.textContent =&quot;文字列の設定&quot;</code></pre>
         <h3>HTMLタグを含む文字列</h3>
-        <pre class="js"><code>element.innerHTML //取得
+        <pre class="js"><code>要素.innerHTML //取得
 document.createElement(&quot;p&quot;);
 document.createTextNode(&quot;テスト&quot;);
 
 tag.appendChild(text)</code></pre>
+        <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
       </section>
       <section>
         <h2>classの操作</h2>
         <h3>新しいclass名を追加</h3>
-        <pre class="js"><code>element.classList.add(&quot;open&quot;);</code></pre>
+        <pre class="js"><code>要素.classList.add(&quot;open&quot;);</code></pre>
         <h3>class名を削除</h3>
-        <pre class="js"><code>element.classList.remove(&quot;open&quot;);</code></pre>
+        <pre class="js"><code>要素.classList.remove(&quot;open&quot;);</code></pre>
         <h3>classの付与をトグル</h3>
-        <pre class="js"><code>element.classList.toggle(&quot;open&quot;);</code></pre>
+        <pre class="js"><code>要素.classList.toggle(&quot;open&quot;);</code></pre>
         <h3>class名を一括編集</h3>
-        <pre class="js"><code>element.className = element + &quot;_li&quot;
+        <pre class="js"><code>要素.className = element + &quot;_li&quot;
 // class=&quot;element_li&quot;</code></pre>
+        <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
       </section>
       <section>
         <h2>クリックイベント</h2>
-        <pre class="js"><code>let ボタン = document.getElementById(&quot;xxx&quot;);
-ボタン.addEventListener(&quot;click&quot;, 数);
-ボタン.addEventListener(&quot;click&quot;, ()=&gt;{処理});
-function 関数(){
-	クリック時の処理
+        <pre class="js"><code>要素.addEventListener(&quot;click&quot;, 処理関数...);</code></pre>
+        <div class="sample">
+          <h3>サンプル</h3>
+          <pre class="js"><code>要素.addEventListener(&quot;click&quot;, (イベント) =&gt; {
+	イベント.target.textContent
+	// イベント=発火対象 });</code></pre>
+        </div>
+        <div class="area-tag"><a class="tag" href="#処理機能">処理機能</a>
+        </div>
+      </section>
+      <section>
+        <h2>HTMLCollection と NodeList</h2>
+        <h3>HTMLCollection</h3>
+        <pre class="js"><code>document.getElementsByTagName
+document.getElementsByClassName
+document.getElementsByName</code></pre>
+        <ul class="sample">
+          <li><code>HTMLCollection</code>は「動的」な 配列風オブジェクト、DOMの変更が随時反映される</li>
+          <li><code>foreach</code>が使えない</li>
+        </ul>
+        <h3>NodeList</h3>
+        <pre class="js"><code>document.querySelectorAll
+Node.childNodes</code></pre>
+        <ul class="sample">
+          <li><code>NodeList</code>は「静的」な配列風オブジェクト、DOMの変更が反映されない</li>
+          <li><code>childNodes</code>の戻り値である<code>NodeList</code>は動的なので注意</li>
+          <li><code>foreach</code>を使用できる</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#基本仕様">基本仕様</a><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
+      </section>
+      <section>
+        <h2>タイマー処理</h2>
+        <div class="sample">
+          <h3>実行したい関数(式)</h3>
+          <pre class="js"><code>const 関数 = function(testA,testB){
+	console.log(testA + testB);
 }</code></pre>
+        </div>
+        <h3>setTimeout / setInterval(<span class="modal">呼出関数, 時間ms, 引数...</span>)</h3>
+        <pre class="js"><code>setTimeout(関数,3000,&quot;こん&quot;,&quot;にちは&quot;);
+// 3秒後にログが 1回 実行される
+setInterbal(関数,10000,&quot;さよ&quot;,&quot;なら&quot;);
+// 10秒毎に関数が 繰り返し 実行される
+</code></pre>
+        <ul class="sample">
+          <li><code>setTimeout()</code>は指定の時間後に 1回のみ 実行したい場合に使う。</li>
+          <li><code>setInterval()</code>は時間毎に処理を 繰り返し 実行したいとき使用する。</li>
+          <li>第3オプションの引数は、コールバック関数の引数が必要なときに記述する</li>
+        </ul>
+        <h3>clearTimeout / clearInterval(<span class="modal">取り消したい関数</span>)</h3>
+        <pre class="js"><code>clearTimeout(関数);
+// 関数のsetTimeoutが取り消される
+clearInterval(関数);
+// 関数のsetIntervalが取り消される</code></pre>
+        <ul class="sample">
+          <li>タイマーを解除したい場合はどちらも対応するclearを指定する。setIntervalでよく使うだろう。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#処理機能">処理機能</a>
+        </div>
       </section>
     </main>
+    <footer>
+          <ul class="sitelink">
+            <li><a href="../js/">JSTips</a></li>
+            <li><a href="../pug">pugTips</a></li>
+          </ul><a href="../">stms-note</a>
+    </footer>
+    <nav id="navigation">
+      <input id="burger" type="checkbox">
+      <label class="menu-button" for="burger">
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+      </label>
+      <ul id="toc"></ul>
+          <ul class="sitelink">
+            <li><a href="../js/">JSTips</a></li>
+            <li><a href="../pug">pugTips</a></li>
+          </ul>
+    </nav>
+    <div id="modal"></div>
+    <script>hljs.highlightAll();</script>
+    <script src="../assets/script.js"></script>
   </body>
-  <footer><a href="../">stms-note</a></footer>
-  <div id="modal"></div>
-  <script>hljs.highlightAll();</script>
-  <script src="../assets/script.js"></script>
 </html>

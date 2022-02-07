@@ -1,11 +1,26 @@
+//- 共通MIXIN - シンタックスハイライト短縮
+mixin code(syntax,text)
+	pre(class=syntax)
+		code= text
+mixin tag(...text)
+	.area-tag
+		each tagtext in text
+			a(href="#"+tagtext).tag= tagtext
+//- HTML開始
 doctype html
 html(lang="ja")
-	block head
-		include ./_header.pug
+	head
+		block head
+			include ./_head.pug
 
-	block body
+	body
+		block sitetop
+			h1: a(href="../") #{pagetitle} Tips
+		block contents
 
-	block footer
-		include ./_footer.pug
+		block footer
+			include ./_footer.pug
 
-	block script
+		block script
+			script hljs.highlightAll();
+			script(src="../assets/script.js")

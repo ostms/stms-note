@@ -1,17 +1,23 @@
 %logofont
 	font-family: 'M PLUS 1 Code', monospace
-$fd: .4s
+$modal_sub-block: div, blockquote, ".sample"
+$modal_sub-inline: ".modal"
 
+// ------------------------------------------------------------
+// 要素スタイル
+// ------------------------------------------------------------
 html
 	font-size: 62.5%
-
 h1,h2,h3,h4,h5,h6
 	margin: 0
 	text-align: center
 h1
 	@extend %logofont
 	width: 100%
-	margin-bottom: 1rem
+	margin-bottom: .5rem
+	a, a:hover
+		color: inherit
+		text-decoration: none
 h2
 	font-size: 1.6rem
 h3
@@ -21,14 +27,28 @@ h3
 		content: "－"
 	& + pre
 		margin: 0 auto .5em
-
 a
 	color: hsl(30, 50%, 40%)
 	text-decoration: none
 	&:hover
 		color: hsl(30, 55%, 45%)
 		text-decoration: underline
+ul[class]:not(.sample), ul[id]
+	list-style: none
+	padding: 0
 
+
+// ------------------------------------------------------------
+// クラス
+// ------------------------------------------------------------
+.small // 小文字
+	font-size: smaller
+	opacity: .75
+
+
+// ------------------------------------------------------------
+// ブロックスタイル
+// ------------------------------------------------------------
 body
 	color: #444
 	background: hsl(30, 10%, 85%)
@@ -53,15 +73,24 @@ section
 	cursor: pointer
 	&:first-of-type
 		margin-top: 0
-
-.more-sec
-	display: none
+	// セクション内の折り畳み要素(非表示)
+	#{$modal_sub-block},#{$modal_sub-inline}
+		display: none
 
 footer
 	@extend %logofont
 	text-align: center
 	padding: 1.6rem
+.sitelink
+	margin: 0 0 .5em
+	display: flex
+	justify-content: center
+	& > *
+		margin: 0 .5em
 
+// ------------------------------------------------------------
+// コードスタイル
+// ------------------------------------------------------------
 pre
 	tab-size: 2
 	white-space: pre-wrap
@@ -74,7 +103,7 @@ pre
 		top: -.7rem
 		right: 0
 	code.hljs
-		padding: .5em 0 .5em 5% !important
+		padding: .5em 0 .5em 3% !important
 		background: #f4f3f3
 
 code
@@ -82,7 +111,15 @@ code
 	font-size: 1.2rem
 	font-weight: 500
 	line-height: 1.4
+section > .sample code:not(.hljs)
+	color: #F39
+	background: #f6f5f5
+	padding: .2em
+	margin: 0 .1em
 
+// ------------------------------------------------------------
+// メディアクエリ
+// ------------------------------------------------------------
 @mixin mq($width-px)
 	@media screen and (max-width: $width-px)
 		@content
@@ -100,8 +137,10 @@ code
 	main
 		column-count: 1
 
+// ------------------------------------------------------------
 // JSモーダル
 // ------------------------------------------------------------
+$fd: .4s
 #modal
 	background: transparent
 	transition: background $fd, visibility $fd
@@ -111,11 +150,107 @@ code
 	position: fixed
 	top: 0
 	left: 0
-	&.open
-		background: rgba(10,4,0,.3)
-		visibility: visible
-	&>section
+	& > section
 		width: 60%
 		max-width: 102.4rem
 		box-shadow: none
 		margin: 20vh auto auto
+		transition: opacity $fd
+		opacity: 0
+		cursor: initial
+		// モーダル内では折り畳みを表示
+		#{$modal_sub-block}
+			display: block
+	#{$modal_sub-inline}
+		display: inline
+	&.open
+		background: rgba(10,4,0,.3)
+		visibility: visible
+		cursor: pointer
+		& > section
+			opacity: 1
+	code
+		font-size: 1.6rem
+
+// ------------------------------------------------------------
+// 開閉ナビ
+// ------------------------------------------------------------
+nav
+	background: rgba(0, 0, 0, .5)
+	height: 100vh
+	width: 0
+	position: fixed
+	top: 0
+	right: 0
+	transition: width $fd
+	&.open
+		width: 40vw
+
+#toc
+	margin: 5rem 1em 1em 2em
+	font-size: 2rem
+	font-weight: 500
+	line-height: 1.7
+	a
+		color: #fff
+
+.menu-button
+	width: 3rem
+	height: 2.2rem
+	position: absolute
+	top: 1.5rem
+	right: 2rem
+	cursor: pointer
+.menu-icon
+	background-color: #444
+	border-radius: .3rem
+	height: .3rem
+	width: 100%
+	transition: background $fd, transform $fd, top .2s
+	position: absolute
+	&:nth-of-type(1)
+		top: 0
+	&:nth-of-type(2)
+		top: 50%
+	&:nth-of-type(3)
+		top: 100%
+input#burger
+	display: none
+	&:checked
+		& + .menu-button
+			display: block
+			& > .menu-icon
+				background: #fff
+				top: 50%
+				&:nth-of-type(2)
+					background: transparent
+				&:nth-of-type(1)
+					transform: rotate(45deg)
+				&:nth-of-type(3)
+					transform: rotate(-45deg)
+
+// ------------------------------------------------------------
+// タグクラウド
+// ------------------------------------------------------------
+header
+	font-size: 1.3rem
+	text-align: center
+	margin-bottom: .5rem
+	a
+		display: inline-block
+		margin: 0 .5em
+		&::before
+			content: "#"
+.area-tag
+	display: none
+	text-align: right
+	margin: 0 .5em
+	#modal &
+		display: block
+.tag
+	font-size: 1.2rem
+	padding: .1rem .4rem
+	// background: #f3dddd
+	margin-left: .5rem
+	&::before
+		content: "#"
