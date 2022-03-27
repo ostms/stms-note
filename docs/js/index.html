@@ -10,11 +10,13 @@
     <meta property="og:title" content="JavaScript Tips">
     <meta property="og:site_name" content="stms-note">
     <meta property="og:url" content="https://ostms.github.io/stms-code">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/style.sass.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&amp;family=Murecho:wght@400;600&amp;display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <!-- link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/eighties.min.css")-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/google-light.min.css">
     <style>
       .js::before{content:"js";background:#9C9;}
@@ -147,22 +149,35 @@ let 要素 = document.querySelector('.sample');</code></pre>
         </div>
       </section>
       <section>
+        <h2>要素の取得</h2>
+        <pre class="mycode js"><span class="hljs-comment">/*子*/</span> 要素<span class="hljs-variable">.children</span>
+<span class="hljs-comment">/*親*/</span> 要素<span class="hljs-variable">.parentNode</span>
+<span class="hljs-comment">/*兄*/</span> 要素<span class="hljs-variable">.previousElementSibling</span>
+<span class="hljs-comment">/*弟*/</span> 要素<span class="hljs-variable">.nextElementSibling</span></pre>
+        <h3>祖先要素の取得</h3>
+        <pre class="js"><code>子要素.closest('CSSセレクタ');</code></pre>
+        <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
+      </section>
+      <section>
         <h2>要素の追加</h2>
         <h3>親要素内の最後</h3>
         <pre class="js"><code>親.appendChild(追加要素)
+親.append(要素A,テキスト...)
 親.insertBefore(追加要素, null)</code></pre>
         <h3>指定した要素の前</h3>
         <pre class="js"><code>親.insertBefore(追加要素, 指定要素)</code></pre>
         <h3>指定した要素の後</h3>
         <pre class="js"><code>親.insertBefore(追加要素, 指定要素.nextSibling)</code></pre>
-        <h3>親要素の最初</h3>
-        <pre class="js"><code>親.insertBefore(追加要素, 親.firstChild)</code></pre>
+        <h3>親要素の先頭</h3>
+        <pre class="js"><code>親.prepend(要素,テキスト...)
+親.insertBefore(追加要素, 親.firstChild)</code></pre>
         <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
         </div>
       </section>
       <section>
         <h2>要素の複製</h2>
-        <pre class="js"><code>let clone = 要素.cloneNode(true);</code></pre>
+        <pre class="js"><code>要素.cloneNode(true);</code></pre>
         <div class="sample">
           <h3>sample.html</h3>
           <pre class="html"><code>&lt;body&gt;
@@ -170,18 +185,22 @@ let 要素 = document.querySelector('.sample');</code></pre>
 	&lt;div id=&quot;modal&quot;&gt;&lt;/div&gt;
 &lt;/body&gt;</code></pre>
           <h3>script.js</h3>
-          <pre class="js"><code>let modal = document.getElementById('modal'); //&lt;div id=&quot;modal&quot;&gt;
-let img = document.getElementsByTagName('img'); //&lt;img src=&quot;sample.jpg&quot;&gt;
+          <pre class="js"><code>const モーダル = document.getElementById('modal');
+const 画像 = document.getElementsByTagName('img');
 
-let cloneItem = img[0].cloneNode(true); //&lt;img src=&quot;sample.jpg&quot;&gt;
+let クローン = 画像[0].cloneNode(true);	//&lt;img src=&quot;sample.jpg&quot;&gt;が複製される
 
-modal.appendChild(cloneItem);
-//&lt;div id=&quot;modal&quot;&gt;
-//	&lt;img src=&quot;sample.jpg&quot;&gt;
-//&lt;/div&gt;</code></pre>
+モーダル.appendChild(クローン);</code></pre>
           <ul>
             <li>要素の取得、追加ではオリジナルの要素が消えてしまう（移動する）ため、モーダルに表示したいときなどは複製を使う</li>
           </ul>
+          <h3>結果.html</h3>
+          <pre class="html"><code>&lt;body&gt;
+	&lt;img src=&quot;sample.jpg&quot;&gt;
+	&lt;div id=&quot;modal&quot;&gt;
+		&lt;img src=&quot;sample.jpg&quot;&gt; &lt;!--複製されたimg--&gt;
+	&lt;/div&gt;
+&lt;/body&gt;</code></pre>
         </div>
         <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
         </div>
@@ -204,6 +223,22 @@ document.createElement(&quot;p&quot;);
 document.createTextNode(&quot;テスト&quot;);
 
 tag.appendChild(text)</code></pre>
+        <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
+        </div>
+      </section>
+      <section>
+        <h2>複数の要素を保持</h2>
+        <h3>DocumentFragment</h3>
+        <pre class="js"><code>置場 = document.createDocumentFragment();
+置場.append(要素1, 要素2...);
+親要素.appendChild(置場);</code></pre>
+        <div class="sample">
+          <ul>
+            <li>複数の要素ノードを一時的にストックできる仮の要素ノードとして使える。
+              <li>最後に本文へ追加する際は、Fragmentの中身のみが追加される。</li>
+            </li>
+          </ul>
+        </div>
         <div class="area-tag"><a class="tag" href="#DOM操作">DOM操作</a>
         </div>
       </section>

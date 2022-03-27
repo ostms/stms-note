@@ -20,13 +20,16 @@ h1
 		text-decoration: none
 h2
 	font-size: 1.6rem
+	section &
+		font-size: 1.3em
 h3
-	font-size: 1.2rem
 	text-align: left
-	&::before
-		content: "－"
 	& + pre
 		margin: 0 auto .5em
+	section &
+	font-size: 1em
+	section &::before
+		content: "－"
 a
 	color: hsl(30, 50%, 40%)
 	text-decoration: none
@@ -36,7 +39,14 @@ a
 ul[class]:not(.sample), ul[id]
 	list-style: none
 	padding: 0
-
+dl,dd
+	margin: 0
+dt
+	float: left
+	text-align: center
+	min-width: 10%
+	&::after
+		content: ":"
 
 // ------------------------------------------------------------
 // クラス
@@ -44,7 +54,10 @@ ul[class]:not(.sample), ul[id]
 .small // 小文字
 	font-size: smaller
 	opacity: .75
-
+.show
+	display: block
+.hide
+	display: none
 
 // ------------------------------------------------------------
 // ブロックスタイル
@@ -63,6 +76,7 @@ main
 	column-gap: 0
 
 section
+	font-size: 1.2rem
 	break-inside: avoid
 	background-color: #fff
 	box-shadow: 1px 1px 10px #ccc
@@ -95,6 +109,8 @@ pre
 	tab-size: 2
 	white-space: pre-wrap
 	position: relative
+	#modal &
+		tab-size: 4
 	&::before
 		color: #fff
 		font-size: 1rem
@@ -102,15 +118,14 @@ pre
 		position: absolute
 		top: -.7rem
 		right: 0
-	code.hljs
+	code.hljs, &.mycode
 		padding: .5em 0 .5em 3% !important
 		background: #f4f3f3
-
-code
+code, .mycode
 	font-family: 'Noto Sans Mono', monospace
-	font-size: 1.2rem
 	font-weight: 500
 	line-height: 1.4
+// サンプル内の地の文コード
 section > .sample code:not(.hljs)
 	color: #F39
 	background: #f6f5f5
@@ -151,6 +166,7 @@ $fd: .4s
 	top: 0
 	left: 0
 	& > section
+		font-size: 1.4rem
 		width: 60%
 		max-width: 102.4rem
 		box-shadow: none
@@ -169,8 +185,6 @@ $fd: .4s
 		cursor: pointer
 		& > section
 			opacity: 1
-	code
-		font-size: 1.6rem
 
 // ------------------------------------------------------------
 // 開閉ナビ

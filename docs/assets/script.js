@@ -10,11 +10,11 @@ for (let i=0; i < section.length; i++) {
 }
 // モーダル画面操作
 modalWindow.addEventListener('click', (event)=>{
-	// if (modalWindow.classList.contains('open') == true) {}
-	if(event.target.closest('#modal > section') === null){
-		// console.log(modalWindow.children);
+	let modalSect = '#modal > section';
+	console.log(event.target);
+	if(event.target.closest(modalSect) === null){
 		modalWindow.classList.remove('open');
-		let inSection = document.querySelector('#modal > section');
+		let inSection = document.querySelector(modalSect);
 		let deleteIn = ()=>{
 			modalWindow.removeChild(inSection);
 		};
@@ -49,9 +49,18 @@ const TOC = document.getElementById('toc');
 	});
 })();
 
-const TagList = document.querySelectorAll('header a');
-TagList.forEach( Me =>{
-	Me.addEventListener('click', (Event)=> {
-		console.log(Event.target);
+(function tagSwitch() {
+	const TagAll = document.querySelectorAll('header a');
+	let stock = document.createDocumentFragment();
+	let selectTag, tagTarget, tagParent;
+	TagAll.forEach( Me =>{
+		Me.addEventListener('click', (Event)=> {
+			selectTag = "#" + Event.target.textContent;
+			tagTarget = document.querySelectorAll(`a.tag[href="${selectTag}"]`);
+			tagTarget.forEach( Me =>{
+				stock.appendChild(Me.closest('section'));
+			});
+			console.log(stock);
+		});
 	});
-});
+})();

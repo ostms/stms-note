@@ -97,26 +97,39 @@ block contents
 			+tag("基本仕様")
 
 		section
+			h2 要素の取得
+			pre.mycode.js
+				| #[span.hljs-comment /*子*/] 要素#[span.hljs-variable .children]
+				| #[span.hljs-comment /*親*/] 要素#[span.hljs-variable .parentNode]
+				| #[span.hljs-comment /*兄*/] 要素#[span.hljs-variable .previousElementSibling]
+				| #[span.hljs-comment /*弟*/] 要素#[span.hljs-variable .nextElementSibling]
+			h3 祖先要素の取得
+			+code("js",`子要素.closest('CSSセレクタ');`)
+			+tag("DOM操作")
+
+		section
 			h2 要素の追加
 			h3 親要素内の最後
-			pre.js: code= `親.appendChild(追加要素)\n親.insertBefore(追加要素, null)`
+			pre.js: code= `親.appendChild(追加要素)\n親.append(要素A,テキスト...)\n親.insertBefore(追加要素, null)`
 			h3 指定した要素の前
 			pre.js: code= `親.insertBefore(追加要素, 指定要素)`
 			h3 指定した要素の後
 			pre.js: code= `親.insertBefore(追加要素, 指定要素.nextSibling)`
-			h3 親要素の最初
-			pre.js: code= `親.insertBefore(追加要素, 親.firstChild)`
+			h3 親要素の先頭
+			pre.js: code= `親.prepend(要素,テキスト...)\n親.insertBefore(追加要素, 親.firstChild)`
 			+tag("DOM操作")
 
 		section
 			h2 要素の複製
-			pre.js: code= `let clone = 要素.cloneNode(true);`
+			pre.js: code= `要素.cloneNode(true);`
 			.sample
 				h3 sample.html
 				+code("html",`<body>\n\t<img src="sample.jpg">\n\t<div id="modal"></div>\n</body>`)
 				h3 script.js
-				+code("js",`let modal = document.getElementById('modal'); //<div id="modal">\nlet img = document.getElementsByTagName('img'); //<img src="sample.jpg">\n\nlet cloneItem = img[0].cloneNode(true); //<img src="sample.jpg">\n\nmodal.appendChild(cloneItem);\n//<div id="modal">\n//\t<img src="sample.jpg">\n//</div>`)
+				+code("js",`const モーダル = document.getElementById('modal');\nconst 画像 = document.getElementsByTagName('img');\n\nlet クローン = 画像[0].cloneNode(true);\t//<img src="sample.jpg">が複製される\n\nモーダル.appendChild(クローン);`)
 				ul: li 要素の取得、追加ではオリジナルの要素が消えてしまう（移動する）ため、モーダルに表示したいときなどは複製を使う
+				h3 結果.html
+				+code("html",`<body>\n\t<img src="sample.jpg">\n\t<div id="modal">\n\t\t<img src="sample.jpg"> <!--複製されたimg-->\n\t</div>\n</body>`)
 			+tag("DOM操作")
 
 		section
@@ -130,6 +143,15 @@ block contents
 			pre.js: code= `要素.textContent //取得\n要素.textContent ="文字列の設定"`
 			h3 HTMLタグを含む文字列
 			pre.js: code= `要素.innerHTML //取得\ndocument.createElement("p");\ndocument.createTextNode("テスト");\n\ntag.appendChild(text)`
+			+tag("DOM操作")
+
+		section
+			h2 複数の要素を保持
+			h3 DocumentFragment
+			pre.js: code= `置場 = document.createDocumentFragment();\n置場.append(要素1, 要素2...);\n親要素.appendChild(置場);`
+			.sample
+				ul: li 複数の要素ノードを一時的にストックできる仮の要素ノードとして使える。
+					li 最後に本文へ追加する際は、Fragmentの中身のみが追加される。
 			+tag("DOM操作")
 
 		section
