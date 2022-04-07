@@ -1,5 +1,6 @@
 %logofont
 	font-family: 'M PLUS 1 Code', monospace
+
 $modal_sub-block: div, blockquote, ".sample"
 $modal_sub-inline: ".modal"
 
@@ -27,7 +28,7 @@ h3
 	& + pre
 		margin: 0 auto .5em
 	section &
-	font-size: 1em
+		font-size: 1em
 	section &::before
 		content: "－"
 a
@@ -54,9 +55,12 @@ dt
 .small // 小文字
 	font-size: smaller
 	opacity: .75
-.show
+
+// JSで使うクラス
+.is-show
 	display: block
-.hide
+
+.is-hide
 	display: none
 
 // ------------------------------------------------------------
@@ -76,20 +80,23 @@ main
 	column-gap: 0
 
 section
+	min-width: 15rem
+	margin: 0 .5em 1em
+	padding: .5em
+	border-radius: .5rem
+	box-shadow: 1px 1px 10px #ccc
+	background-color: #fff
+	cursor: pointer
 	font-size: 1.2rem
 	break-inside: avoid
-	background-color: #fff
-	box-shadow: 1px 1px 10px #ccc
-	border-radius: .5rem
-	padding: .5em
-	margin: 1em .5em
-	min-width: 15rem
-	cursor: pointer
-	&:first-of-type
-		margin-top: 0
+	// トランジション
+
 	// セクション内の折り畳み要素(非表示)
-	#{$modal_sub-block},#{$modal_sub-inline}
+	#{$modal_sub-block}, #{$modal_sub-inline}
 		display: none
+
+
+
 
 footer
 	@extend %logofont
@@ -179,10 +186,12 @@ $fd: .4s
 			display: block
 	#{$modal_sub-inline}
 		display: inline
+
+	// モーダルオープン時(JS)
 	&.open
-		background: rgba(10,4,0,.3)
 		visibility: visible
 		cursor: pointer
+		background: rgba(10,4,0,.3)
 		& > section
 			opacity: 1
 
@@ -190,13 +199,14 @@ $fd: .4s
 // 開閉ナビ
 // ------------------------------------------------------------
 nav
-	background: rgba(0, 0, 0, .5)
-	height: 100vh
-	width: 0
 	position: fixed
 	top: 0
 	right: 0
+	height: 100vh
+	width: 0
 	transition: width $fd
+	background: rgba(0, 0, 0, .5)
+	// nav オープン時
 	&.open
 		width: 40vw
 
@@ -250,21 +260,24 @@ header
 	font-size: 1.3rem
 	text-align: center
 	margin-bottom: .5rem
-	a
-		display: inline-block
-		margin: 0 .5em
-		&::before
-			content: "#"
+
+// section内の.tagエリア
 .area-tag
 	display: none
 	text-align: right
 	margin: 0 .5em
 	#modal &
 		display: block
+
+// A.tag ※JSでも取得します
 .tag
-	font-size: 1.2rem
-	padding: .1rem .4rem
-	// background: #f3dddd
-	margin-left: .5rem
 	&::before
 		content: "#"
+	header &
+		display: inline-block
+		margin: 0 .5em
+	section &
+		font-size: 1.2rem
+		padding: .1rem .4rem
+		margin-left: .5rem
+		// background: #f3dddd

@@ -1,17 +1,22 @@
-extends ../_layout.pug
+extends includes/_layout.pug
 block pagetitle
 	- pagetitle = "pug"
+block favicon
+	- let favicon = "_pug"
 block ogpimg
-	- ogpimg = "pug/ogpthm.png"
+	- ogpimg = "pugthm.png"
 block style
 	style.
 		.pug::before {content:"pug";background:#9c9;}
 		.html::before {content:"html";background:#c99;}
+
 block contents
+	h1: a(href="./pug.html") #{pagetitle} Tips
+
 	header
 		- let tagname = ["基本","省略記法","変数","Script","テンプレート"]
 		each tag in tagname
-			a(href=`#${tag}`)= tag
+			a.tag(href="#" + tag)= tag
 	main
 		section
 			h2 タグとテキスト

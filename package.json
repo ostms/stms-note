@@ -1,18 +1,16 @@
 {
-  "name": "vsnotes",
-  "version": "1.0.0",
-  "description": "",
+  "name": "stms-tips",
+  "version": "2.0.0",
+  "description": "自分用コーディング言語Tips集",
   "main": "index.js",
   "scripts": {
-    "vue-watch": "pug ./@Vue --hierarchy -o ./@Vue -P -w",
-    "pug-watch": "pug ./@pug --hierarchy -o ./@pug -P -w",
-    "docs-watch": "pug ./docs/assets --hierarchy -o ./docs -P -w"
+    "pug:watch": "pug ./src --hierarchy -o ./tips -P -w",
+    "sass:watch": "sass ./src/sass:./assets --no-source-map --style=compressed --watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "o.stms",
   "license": "ISC",
   "devDependencies": {
-    "jstransformer-escape-html": "^1.1.0",
-    "pug-cli": "github:pugjs/pug-cli#master"
+    "jstransformer-escape-html": "^1.1.0"
   }
 }

@@ -1,17 +1,23 @@
-
 //- mixinは_layout.pugに記載。使い方は +ミックスイン名("引数1","引数2")
-extends ../_layout.pug
+extends includes/_layout.pug
+
+block favicon
+	- let favicon = "_js"
 block pagetitle
 	- pagetitle ="JavaScript"
 block style
 	style.
 		.js::before{content:"js";background:#9C9;}
 		.html::before{content:"html";background:#C99;}
+
+
 block contents
+	h1: a(href="./js.html") #{pagetitle} Tips
+
 	header
 		- let tagname = ["基本仕様","DOM操作","処理機能"]
 		each tag in tagname
-			a(href=`#${tag}`)= tag
+			a.tag(href=`#${tag}`)= tag
 	main
 		section
 			h2 共通サンプル

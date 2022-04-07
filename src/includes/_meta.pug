@@ -3,6 +3,8 @@ block pagetitle
 	- let pagetitle = ""
 block ogpimg
 	- let ogpimg = ""
+block favicon
+	- let favicon = ""
 
 meta(charset="UTF-8")
 meta(name="robots" content="noindex,nofollow,noarchive,noimageindex")
@@ -15,23 +17,26 @@ meta(property="og:title" content=`${pagetitle} Tips`)
 meta(property="og:site_name" content="stms-note")
 meta(property="og:url" content="https://ostms.github.io/stms-code")
 if ogpimg !== ""
-	meta(property="og:image" content="https://ostms.github.io/stms-note/"+ogpimg)
-link(rel="shortcut icon", href="favicon.ico", type="image/x-icon")
-//- StyleSheet
-link(rel="stylesheet" href=`${assets}/style.sass.min.css`)
+	meta(property="og:image" content="https://ostms.github.io/stms-note/assets/img/"+ogpimg)
+link(rel="shortcut icon", href=`${assets}/favicon${favicon}.ico`, type="image/x-icon")
 
-//- Google Fonts
+// Google Fonts -----
 link(rel="preconnect" href="https://fonts.googleapis.com")
 link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
 link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=Murecho:wght@400;600&display=swap")
 
-//- Highlight.js
+
+// StyleSheet -----
+link(rel="stylesheet" href=`${assets}/style.css`)
+
+// Highlight.js -----
 script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js")
 // link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/eighties.min.css")
 link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/google-light.min.css")
 
 block style
-//- Global site tag (gtag.js) - Google Analytics
+
+// Global site tag (gtag.js) - Google Analytics
 script(async src="https://www.googletagmanager.com/gtag/js?id=G-G8FCPF442B")
 script.
 	window.dataLayer = window.dataLayer || [];
