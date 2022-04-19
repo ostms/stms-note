@@ -1,7 +1,10 @@
 mixin sitelink
 	ul.sitelink
-		li: a(href="./js.html") JSTips
+		li: a(href="./js.html" title="JavaScript Tips") JSTips
 		li: a(href="./pug.html") pugTips
+		li: a(href="./jquery.html" title="jQuery Tips") jQTips
+//- 2箇所で使うためMIXIN
+
 footer
 	+sitelink
 	a(href="../") stms-note

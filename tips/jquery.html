@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Tips | stms-note</title>
+    <meta name="description" content="jQueryの自分用記述メモです">
+    <meta property="og:title" content="jQuery Tips">
+    <meta property="og:site_name" content="stms-note">
+    <meta property="og:url" content="https://ostms.github.io/stms-code">
+    <link rel="icon" href="../assets/favicon_js.ico" type="image/x-icon">
+    <!-- Google Fonts ------->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&amp;family=Murecho:wght@400;600&amp;display=swap">
+    <!-- StyleSheet ------->
+    <link rel="stylesheet" href="../assets/style.css">
+    <!-- Highlight.js ------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <!-- link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/eighties.min.css")-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/google-light.min.css">
+    <style>
+      .html::before{content:"html";background:#C99;}
+      .jq::before{content:"jQ";background:#99C;}
+      .js::before{content:"js";background:#9C9;}
+      
+      
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G8FCPF442B"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-G8FCPF442B');
+    </script>
+  </head>
+  <body>
+    <h1><a href="">jQuery Tips</a></h1>
+    <header><a class="tag" href="#セレクタ">セレクタ</a><a class="tag" href="#コンテキスト">コンテキスト</a><a class="tag" href="#移動">移動</a><a class="tag" href="#作成">作成</a><a class="tag" href="#スタイル">スタイル</a><a class="tag" href="#座標">座標</a>
+    </header>
+    <main>
+      <section>
+        <h2>基本</h2>
+        <h3>$("")の中はなんでも指定できる</h3>
+        <pre class="jq"><code>$(&quot;#app&quot;)...
+$(&quot;&lt;ul&gt;&lt;li&gt;リスト1&lt;/li&gt;&lt;/ul&gt;&quot;)</code></pre>
+      </section>
+      <section>
+        <h2>$('#id')</h2>
+        <pre class="jq"><code>$(&quot;#id&quot;)</code></pre>
+        <pre class="js"><code>document.getElementById(&quot;id&quot;)</code></pre>
+        <div class="area-tag"><a class="tag" href="#セレクタ">セレクタ</a>
+        </div>
+      </section>
+      <section>
+        <h2>$('.class')</h2>
+        <div class="sample">
+          <h3>sample.html</h3>
+          <pre class="html"><code>&lt;div class=&quot;hello&quot;&gt;こんにちは&lt;/div&gt;
+&lt;div class=&quot;hello&quot;&gt;こんにちは&lt;/div&gt;</code></pre>
+          <h3>script.js</h3>
+        </div>
+        <pre class="jq"><code>$(&quot;.hello&quot;).html(&quot;こんばんは&quot;);</code></pre>
+        <pre class="js"><code>let hello = document.getElementsByClassName(&quot;class&quot;);
+for (let i=0; i &lt; hello.length; i++) {
+	hello[i].innerHTML = &quot;こんばんは&quot;;
+}</code></pre>
+        <ul class="sample">
+          <li>クラスは複数あるかもしれないものなので、JSのclassは配列風オブジェクトで返ってくる。</li>
+          <li>一つしかない/特定の番号を狙うときは <code>class[0]</code> のようにindex数を指定する</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#セレクタ">セレクタ</a>
+        </div>
+      </section>
+      <section>
+        <h2>.html()</h2>
+        <pre class="jq"><code>$(&quot;要素&quot;).html(&quot;&lt;span&gt;テスト&lt;/span&gt;&quot;);</code></pre>
+        <pre class="js"><code>要素.innerHTML = &quot;&lt;span&gt;テスト&lt;/span&gt;&quot;;</code></pre>
+        <div class="sample">
+          <h3>取得したいとき</h3>
+          <pre class="jq"><code>$(&quot;要素&quot;).html();</code></pre>
+          <pre class="js"><code>要素.innerHTML;</code></pre>
+          <ul>
+            <li><code>.html()</code> / <code>.innerHTML</code> は、HTMLタグも含めた要素内文章を取得、置き換えするプロパティ</li>
+          </ul>
+        </div>
+        <div class="area-tag"><a class="tag" href="#コンテキスト">コンテキスト</a>
+        </div>
+      </section>
+      <section>
+        <h2>.text()</h2>
+        <pre class="jq"><code>$(&quot;要素&quot;).text(&quot;テスト&quot;);</code></pre>
+        <pre class="js"><code>要素.textContent = &quot;テスト&quot;;</code></pre>
+        <ul class="sample">
+          <li>こちらはHTMLタグを含まない純テキストを取得、置き換えするプロパティ。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#コンテキスト">コンテキスト</a>
+        </div>
+      </section>
+      <section>
+        <h2>.val</h2>
+        <pre class="jq"><code>$(&quot;#input&quot;).val(&quot;フォーム&quot;);</code></pre>
+        <pre class="js"><code>input要素.value = &quot;テスト&quot;;</code></pre>
+        <ul class="sample">
+          <li><code>val()</code> と <code>.value</code>は、フォーム要素の値を変更したり取得するもの。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#コンテキスト">コンテキスト</a>
+        </div>
+      </section>
+      <section>
+        <h2>.insertBefore()</h2>
+        <div class="sample">
+          <h3>#main の前に #before を挿入する</h3>
+          <pre class="html"><code>&lt;div id=&quot;before&quot;&gt;&lt;!-- jsで追加 --&gt;&lt;/div&gt;
+&lt;main id=&quot;main&quot;&gt;...</code></pre>
+        </div>
+        <pre class="jq"><code>$(&quot;#main&quot;).insertBefore($(&quot;#before&quot;));</code></pre>
+        <pre class="js"><code>let メイン = document.getElementById(&quot;main&quot;);
+let 追加 = document.getElementById(&quot;before&quot;);
+メイン.parentNode.insertBefore(追加, メイン)</code></pre>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>.append()</h2>
+        <pre class="jq"><code>$(&quot;#main&quot;).append($(&quot;#nav&quot;));</code></pre>
+        <pre class="js"><code>document.getElementById(&quot;main&quot;)
+.appendChild(document.getElementById(&quot;nav&quot;));</code></pre>
+        <ul class="sample">
+          <li>JSの移動用メソッドは .insertBefore()と.appendChild() の二つしかない。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>.after()</h2>
+        <pre class="jq"><code>$(&quot;#main&quot;).after($(&quot;#nav&quot;));</code></pre>
+        <pre class="js"><code>メイン.parentNode.insertBefore(ナビ, メイン.nextElementSibling);</code></pre>
+        <ul class="sample">
+          <li>JSの<code>.insertBefore</code> は「前に置く」命令だが、<code>.nextElementSibling</code> という 1個先の兄弟要素を指定する命令を使い「後に置く」事が可能。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>.before()</h2>
+        <pre class="jq"><code>$(&quot;#main&quot;).before($(&quot;#nav&quot;));</code></pre>
+        <pre class="js"><code>メイン.parentNode.insertBefore(ナビ, メイン);</code></pre>
+        <ul class="sample">
+          <li>前回の <code>insertBefore</code> と逆の記述になります。 jQuery の <code>.before()</code> と <code>.insertBefore()</code> は中身が逆の関係です。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>.insertAfter()</h2>
+        <pre class="jq"><code>$(&quot;#nav&quot;).insertAfter($(&quot;#main&quot;));</code></pre>
+        <pre class="js"><code>メイン.parentNode.insertBefore(ナビ, メイン.nextElementSibling);</code></pre>
+        <ul class="sample">
+          <li>jQuery の <code>.after()</code> と JSの <code>.insertAfter()</code> は中身が逆の関係です。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>.appendTo()</h2>
+        <pre class="jq"><code>$(&quot;#nav&quot;).appendTo($(&quot;#main&quot;));</code></pre>
+        <pre class="js"><code>メイン.appendChild(ナビ);</code></pre>
+        <ul class="sample">
+          <li>jQuery の <code>.append()</code> と <code>.appendTo()</code> も逆の関係でした。前回と一緒ですね。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>.prepend()</h2>
+        <pre class="jq"><code>$(&quot;#main&quot;).prepend($(&quot;#nav&quot;));</code></pre>
+        <pre class="js"><code>var メイン親 = document.getElementById(&quot;main&quot;).parentNode;
+メイン親.insertBefore(ナビ, メイン親.firstElementChild);</code></pre>
+        <ul class="sample">
+          <li>親要素の一番初めに挿入する命令 <code>.prepend()</code> です。<code>.insertBefore</code> を用いて複雑ですが再現が可能です。</li>
+          <li><code>.firstElementChild</code> が一番最初の子要素を取得する命令です。一番最初の子要素の前に挿入すればOKなのでそのような書き方になってます。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>.prependTo()</h2>
+        <pre class="jq"><code>$(&quot;#nav&quot;).prependTo($(&quot;#main&quot;));</code></pre>
+        <pre class="js"><code>var メイン親 = document.getElementById(&quot;main&quot;).parentNode;
+メイン親.insertBefore(ナビ, メイン親.firstElementChild);</code></pre>
+        <ul class="sample">
+          <li>jQuery の <code>prepend()</code> と <code>preoendTo()</code> は中身が逆の関係でしたので、<code>.prepend()</code> の書き換えと逆になっているだけです。</li>
+          <li>ネイティブな JavaScript には <code>.insertBefore</code> と <code>.appendChild</code> しか無いということは覚えておきましょう。この2つだけでも十分に任意の場所に挿入することが可能です。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#移動">移動</a>
+        </div>
+      </section>
+      <section>
+        <h2>$('&lt;div&gt;')</h2>
+        <h3>要素を新規作成する</h3>
+        <pre class="jq"><code>$(&quot;&lt;div&gt;&quot;)</code></pre>
+        <pre class="js"><code>document.createElement(&quot;div&quot;)</code></pre>
+        <ul class="sample">
+          <li>jQuery の場合は <code>$("&lt;div /&gt;")</code> も <code>$("&lt;div&gt;&lt;/div&gt;")</code> も同じく div 要素を作ることが出来ます。同じものだと考えてください。</li>
+          <li><code>.creaeElement()</code> が「要素を作る」命令です。("要素タグ名")を記述して作成します。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#作成">作成</a>
+        </div>
+      </section>
+      <section>
+        <h2>$('&lt;div class="sample"&gt;')</h2>
+        <h3>class付き要素を作成する</h3>
+        <pre class="jq"><code>$(&quot;&lt;div class='sample'&gt;&quot;)</code></pre>
+        <pre class="js"><code>var 要素 = document.createElement(&quot;div&quot;);
+要素.className = &quot;sample&quot;;</code></pre>
+        <ul class="sample">
+          <li>class を付ける場合は、まず変数を作成し要素を代入したものに対して <code>.className</code> という命令で class を付与します。</li>
+          <pre class="js"><code>要素.classList.add(&quot;sample&quot;); // 個別にクラスを指定する方法はこれ</code></pre>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#作成">作成</a>
+        </div>
+      </section>
+      <section>
+        <h2>$('&lt;div id="main"&gt;')</h2>
+        <h3>id付き要素を作成する</h3>
+        <pre class="jq"><code>$(&quot;&lt;div id='main'&gt;&quot;)</code></pre>
+        <pre class="js"><code>var 要素 = document.createElement(&quot;div&quot;);
+要素.id = &quot;main&quot;;</code></pre>
+        <ul class="sample">
+          <li>id を付ける場合は、同様に変数をおき、その変数に <code>.id = "ID名"</code> で付与します。</li>
+          <li>これと同じ記述方法で指定できる例は <code>.href</code> <code>.target</code> <code>.name</code> <code>.src</code> などなど</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#作成">作成</a>
+        </div>
+      </section>
+      <section>
+        <h2>$('&lt;div onclick="..."&gt;')</h2>
+        <h3>onclick属性要素</h3>
+        <pre class="jq"><code>$(&quot;&lt;div onclick='○○'&gt;&quot;)</code></pre>
+        <pre class="js"><code>var 要素 = document.createElement(&quot;div&quot;);
+要素.setAttribute(&quot;onclick&quot;, &quot;○○&quot;);</code></pre>
+        <ul class="sample">
+          <li>「.○○」で付与できない属性は <code>.setAttribute("属性","値")</code> を使うことで付与できます。</li>
+          <li>style 属性の付与に関しては .css() で解説するので後述となります。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#作成">作成</a>
+        </div>
+      </section>
+      <section>
+        <h2>.height() .width()</h2>
+        <pre class="jq"><code>$(&quot;#main&quot;).height(50);
+$(&quot;#main&quot;).width(100);</code></pre>
+        <pre class="js"><code>メイン.style.height = &quot;50px&quot;;
+メイン.style.height = &quot;100px&quot;;</code></pre>
+        <ul class="sample">
+          <li>jQuery では単位を省略するとpxになるようだが、JSの単位なしはエラーになる</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#スタイル">スタイル</a>
+        </div>
+      </section>
+      <section>
+        <h2>.offset()</h2>
+        <h3>top 値を取得</h3>
+        <pre class="jq"><code>var トップ = $(&quot;#main&quot;).offset().top;</code></pre>
+        <div class="sample">
+          <pre class="js"><code>var rect = メイン.getBoundingClientRect();
+var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+var トップ = rect.top + scrollTop;</code></pre>
+          <ul>
+            <li>JSでは複雑です。<code>.offset</code>は画面の左上からの距離を取得しますが、それを一発で出す命令は存在しません。jQuery もほぼこのようなコードで動いています。</li>
+          </ul>
+        </div>
+        <h3>left 値を取得</h3>
+        <pre class="jq"><code>var 左 = $(&quot;#main&quot;).offset().left</code></pre>
+        <div class="sample">
+          <pre class="js"><code>var rect = メイン.getBoundingClientRect();
+var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+var 左 = rect.left + scrollLeft;</code></pre>
+          <ul>
+            <li>もう少し簡単にできればいのですが状況によって色々取り方がありますので万能なのはこの方法になります。</li>
+          </ul>
+        </div>
+        <h3>offset値を設定</h3>
+        <pre class="jq"><code>$(&quot;#main&quot;).offset({top: 100, left: 200});</code></pre>
+        <div class="sample">
+          <pre class="js"><code>メイン.style.top = &quot;100px&quot;;
+メイン.style.left = &quot;200px&quot;;</code></pre>
+          <ul>
+            <li>メインが <code>position:relative</code> か <code>absolute</code> か <code>fixed</code> である必要あり。jQuery は自動で処理してくれるが、JSの場合は別途CSS等で設定すること。</li>
+          </ul>
+        </div>
+        <div class="area-tag"><a class="tag" href="#座標">座標</a>
+        </div>
+      </section>
+      <section>
+        <h2>.scrollTop()</h2>
+        <h3>値を取得</h3>
+        <pre class="jq"><code>var scrollTop = $(window).scroll();</code></pre>
+        <pre class="js"><code>var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;</code></pre>
+        <ul class="sample">
+          <li>ブラウザにより多少動きが異なるため書き方が複雑になってます。scrollTop に現在のスクロール位置が入ります。</li>
+          <li>window に対して行うことが多いはずですので window のスクロール値のみ扱います。</li>
+        </ul>
+        <h3>値を設定</h3>
+        <pre class="jq"><code>$(window).scrollTop(300);</code></pre>
+        <pre class="js"><code>window.scrollTo(0, 300);</code></pre>
+        <ul class="sample">
+          <li>ネイティブの方は（0,300）と最初にX座標も指定しなければなりません。横スクロールを扱わない場合は0です。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#座標">座標</a>
+        </div>
+      </section>
+    </main>
+    <footer>
+          <ul class="sitelink">
+            <li><a href="./js.html" title="JavaScript Tips">JSTips</a></li>
+            <li><a href="./pug.html">pugTips</a></li>
+            <li><a href="./jquery.html" title="jQuery Tips">jQTips</a></li>
+          </ul><a href="../">stms-note</a>
+    </footer>
+    <nav id="navigation">
+      <input id="burger" type="checkbox">
+      <label class="menu-button" for="burger">
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+        <div class="menu-icon"></div>
+      </label>
+      <ul id="toc"></ul>
+          <ul class="sitelink">
+            <li><a href="./js.html" title="JavaScript Tips">JSTips</a></li>
+            <li><a href="./pug.html">pugTips</a></li>
+            <li><a href="./jquery.html" title="jQuery Tips">jQTips</a></li>
+          </ul>
+    </nav>
+    <div id="modal"></div>
+    <script>hljs.highlightAll();</script>
+    <script src="../assets/script.js"></script>
+  </body>
+</html>

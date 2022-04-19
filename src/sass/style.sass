@@ -40,14 +40,19 @@ a
 ul[class]:not(.sample), ul[id]
 	list-style: none
 	padding: 0
-dl,dd
-	margin: 0
+
+dl
+	margin: 0 40px
+	line-height: 2
+dt,dd
+	// margin: 0 0 .5em
 dt
 	float: left
-	text-align: center
-	min-width: 10%
+	clear: left
+	padding-right: .5em
 	&::after
 		content: ":"
+
 
 // ------------------------------------------------------------
 // クラス
@@ -115,27 +120,33 @@ footer
 pre
 	tab-size: 2
 	white-space: pre-wrap
+	word-wrap: break-word
+	ine-break: normal
 	position: relative
 	#modal &
 		tab-size: 4
+	// シンタックスを示すラベル
 	&::before
-		color: #fff
-		font-size: 1rem
-		padding: .1em .5em
 		position: absolute
 		top: -.7rem
 		right: 0
-	code.hljs, &.mycode
-		padding: .5em 0 .5em 3% !important
+		padding: .1em .5em
+		font-size: 1rem
+		color: #fff
+	code.hljs,
+	&.mycode
+		padding: .5em 3% !important
 		background: #f4f3f3
+
 code, .mycode
 	font-family: 'Noto Sans Mono', monospace
 	font-weight: 500
 	line-height: 1.4
+
 // サンプル内の地の文コード
-section > .sample code:not(.hljs)
+.sample code:not(.hljs)
 	color: #F39
-	background: #f6f5f5
+	background: #F6F5F5
 	padding: .2em
 	margin: 0 .1em
 

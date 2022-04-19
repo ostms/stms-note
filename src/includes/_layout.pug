@@ -16,7 +16,16 @@ html(lang="ja")
 			include ./_meta.pug
 
 	body
-		block contents
+		block h1
+			h1: a(href="") #{pagetitle} Tips
+		header
+			block header
+				//- - let tagname =[]
+				if tagname != undefined
+					each tag in tagname
+						a.tag(href=`#${tag}`)= tag
+		main
+			block contents
 
 		block footer
 			include ./_footer.pug

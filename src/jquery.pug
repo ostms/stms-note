@@ -1,0 +1,223 @@
+//- mixinは_layout.pugに記載。使い方は +ミックスイン名("引数1","引数2")
+extends includes/_layout.pug
+
+block favicon
+	- let favicon = "_js"
+block pagetitle
+	- pagetitle ="jQuery"
+block style
+	style.
+		.html::before{content:"html";background:#C99;}
+		.jq::before{content:"jQ";background:#99C;}
+		.js::before{content:"js";background:#9C9;}
+
+
+block prepend header
+	- tagname = ["セレクタ","コンテキスト","移動","作成","スタイル","座標"]
+
+block contents
+
+	section
+		h2 基本
+		h3 $("")の中はなんでも指定できる
+		pre.jq: code= '$("#app")...\n$("<ul><li>リスト1</li></ul>")'
+
+	section
+		h2 $('#id')
+		pre.jq: code= '$("#id")'
+		pre.js: code= 'document.getElementById("id")'
+		+tag("セレクタ")
+
+	section
+		h2 $('.class')
+		.sample
+			h3 sample.html
+			pre.html: code= '<div class="hello">こんにちは</div>\n<div class="hello">こんにちは</div>'
+			h3 script.js
+		pre.jq: code= '$(".hello").html("こんばんは");'
+		pre.js: code= 'let hello = document.getElementsByClassName("class");\nfor (let i=0; i < hello.length; i++) {\n\thello[i].innerHTML = "こんばんは";\n}'
+		ul.sample
+			li クラスは複数あるかもしれないものなので、JSのclassは配列風オブジェクトで返ってくる。
+			li 一つしかない/特定の番号を狙うときは <code>class[0]</code> のようにindex数を指定する
+		+tag("セレクタ")
+
+	section
+		h2 .html()
+		pre.jq: code= '$("要素").html("<span>テスト</span>");'
+		pre.js: code= '要素.innerHTML = "<span>テスト</span>";'
+		.sample
+			h3 取得したいとき
+			pre.jq: code= '$("要素").html();'
+			pre.js: code= '要素.innerHTML;'
+			ul
+				li #[code .html()] / #[code .innerHTML] は、HTMLタグも含めた要素内文章を取得、置き換えするプロパティ
+		+tag("コンテキスト")
+
+	section
+		h2 .text()
+		pre.jq: code= '$("要素").text("テスト");'
+		pre.js: code= '要素.textContent = "テスト";'
+		ul.sample
+			li こちらはHTMLタグを含まない純テキストを取得、置き換えするプロパティ。
+		+tag("コンテキスト")
+
+	section
+		h2 .val
+		pre.jq: code= '$("#input").val("フォーム");'
+		pre.js: code= 'input要素.value = "テスト";'
+		ul.sample
+			li #[code val()] と #[code .value]は、フォーム要素の値を変更したり取得するもの。
+		+tag("コンテキスト")
+
+	section
+		h2 .insertBefore()
+		.sample
+			h3 #main の前に #before を挿入する
+			pre.html: code= '<div id="before"><!-- jsで追加 --></div>\n<main id="main">...'
+		pre.jq: code= '$("#main").insertBefore($("#before"));'
+		pre.js: code= 'let メイン = document.getElementById("main");\nlet 追加 = document.getElementById("before");\nメイン.parentNode.insertBefore(追加, メイン)'
+		+tag("移動")
+
+	section
+		h2 .append()
+		pre.jq: code= '$("#main").append($("#nav"));'
+		pre.js: code= 'document.getElementById("main")\n.appendChild(document.getElementById("nav"));'
+		ul.sample
+			li JSの移動用メソッドは .insertBefore()と.appendChild() の二つしかない。
+		+tag("移動")
+
+	section
+		h2 .after()
+		pre.jq: code= '$("#main").after($("#nav"));'
+		pre.js: code= 'メイン.parentNode.insertBefore(ナビ, メイン.nextElementSibling);'
+		ul.sample
+			li JSの#[code .insertBefore] は「前に置く」命令だが、#[code .nextElementSibling] という 1個先の兄弟要素を指定する命令を使い「後に置く」事が可能。
+		+tag("移動")
+
+	section
+		h2 .before()
+		pre.jq: code= '$("#main").before($("#nav"));'
+		pre.js: code= 'メイン.parentNode.insertBefore(ナビ, メイン);'
+		ul.sample
+			li 前回の #[code insertBefore] と逆の記述になります。 jQuery の #[code .before()] と #[code .insertBefore()] は中身が逆の関係です。
+		+tag("移動")
+
+	section
+		h2 .insertAfter()
+		pre.jq: code= '$("#nav").insertAfter($("#main"));'
+		pre.js: code= 'メイン.parentNode.insertBefore(ナビ, メイン.nextElementSibling);'
+		ul.sample
+			li jQuery の #[code .after()] と JSの #[code .insertAfter()] は中身が逆の関係です。
+		+tag("移動")
+
+	section
+		h2 .appendTo()
+		pre.jq: code= '$("#nav").appendTo($("#main"));'
+		pre.js: code= 'メイン.appendChild(ナビ);'
+		ul.sample
+			li jQuery の #[code .append()] と #[code .appendTo()] も逆の関係でした。前回と一緒ですね。
+		+tag("移動")
+
+	section
+		h2 .prepend()
+		pre.jq: code= '$("#main").prepend($("#nav"));'
+		pre.js: code= 'var メイン親 = document.getElementById("main").parentNode;\nメイン親.insertBefore(ナビ, メイン親.firstElementChild);'
+		ul.sample
+			li 親要素の一番初めに挿入する命令 #[code .prepend()] です。#[code .insertBefore] を用いて複雑ですが再現が可能です。
+			li #[code .firstElementChild] が一番最初の子要素を取得する命令です。一番最初の子要素の前に挿入すればOKなのでそのような書き方になってます。
+		+tag("移動")
+
+	section
+		h2 .prependTo()
+		pre.jq: code= '$("#nav").prependTo($("#main"));'
+		pre.js: code= 'var メイン親 = document.getElementById("main").parentNode;\nメイン親.insertBefore(ナビ, メイン親.firstElementChild);'
+		ul.sample
+			li jQuery の #[code prepend()] と #[code preoendTo()] は中身が逆の関係でしたので、#[code .prepend()] の書き換えと逆になっているだけです。
+			li ネイティブな JavaScript には #[code .insertBefore] と #[code .appendChild] しか無いということは覚えておきましょう。この2つだけでも十分に任意の場所に挿入することが可能です。
+		+tag("移動")
+
+	section
+		h2 $('&lt;div&gt;')
+		h3 要素を新規作成する
+		pre.jq: code= '$("<div>")'
+		pre.js: code= 'document.createElement("div")'
+		ul.sample
+			li jQuery の場合は #[code $("&lt;div /&gt;")] も #[code $("&lt;div&gt;&lt;/div&gt;")] も同じく div 要素を作ることが出来ます。同じものだと考えてください。
+			li #[code .creaeElement()] が「要素を作る」命令です。("要素タグ名")を記述して作成します。
+		+tag("作成")
+
+	section
+		h2 $('&lt;div class="sample"&gt;')
+		h3 class付き要素を作成する
+		pre.jq: code= '$("<div class=\'sample\'>")'
+		pre.js: code= 'var 要素 = document.createElement("div");\n要素.className = "sample";'
+		ul.sample
+			li class を付ける場合は、まず変数を作成し要素を代入したものに対して #[code .className] という命令で class を付与します。
+			pre.js: code= '要素.classList.add("sample"); // 個別にクラスを指定する方法はこれ'
+		+tag("作成")
+
+	section
+		h2 $('&lt;div id="main"&gt;')
+		h3 id付き要素を作成する
+		pre.jq: code= '$("<div id=\'main\'>")'
+		pre.js: code= 'var 要素 = document.createElement("div");\n要素.id = "main";'
+		ul.sample
+			li id を付ける場合は、同様に変数をおき、その変数に #[code .id = "ID名"] で付与します。
+			li これと同じ記述方法で指定できる例は #[code .href] #[code .target] #[code .name] #[code .src] などなど
+		+tag("作成")
+
+	section
+		h2 $('&lt;div onclick="..."&gt;')
+		h3 onclick属性要素
+		pre.jq: code= '$("<div onclick=\'○○\'>")'
+		pre.js: code= 'var 要素 = document.createElement("div");\n要素.setAttribute("onclick", "○○");'
+		ul.sample
+			li 「.○○」で付与できない属性は #[code .setAttribute("属性","値")] を使うことで付与できます。
+			li style 属性の付与に関しては .css() で解説するので後述となります。
+		+tag("作成")
+
+
+	section
+		h2 .height() .width()
+		pre.jq: code= '$("#main").height(50);\n$("#main").width(100);'
+		pre.js: code= 'メイン.style.height = "50px";\nメイン.style.height = "100px";'
+		ul.sample
+			li jQuery では単位を省略するとpxになるようだが、JSの単位なしはエラーになる
+		+tag("スタイル")
+
+	section
+		h2 .offset()
+		h3 top 値を取得
+		pre.jq: code= 'var トップ = $("#main").offset().top;'
+		.sample
+			pre.js: code= 'var rect = メイン.getBoundingClientRect();\nvar scrollTop = window.pageYOffset || document.documentElement.scrollTop;\nvar トップ = rect.top + scrollTop;'
+			ul
+				li JSでは複雑です。#[code .offset]は画面の左上からの距離を取得しますが、それを一発で出す命令は存在しません。jQuery もほぼこのようなコードで動いています。
+		h3 left 値を取得
+		pre.jq: code= 'var 左 = $("#main").offset().left'
+		.sample
+			pre.js: code= 'var rect = メイン.getBoundingClientRect();\nvar scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;\nvar 左 = rect.left + scrollLeft;'
+			ul
+				li もう少し簡単にできればいのですが状況によって色々取り方がありますので万能なのはこの方法になります。
+		h3 offset値を設定
+		pre.jq: code= '$("#main").offset({top: 100, left: 200});'
+		.sample
+			pre.js: code= 'メイン.style.top = "100px";\nメイン.style.left = "200px";'
+			ul
+				li メインが #[code position:relative] か #[code absolute] か #[code fixed] である必要あり。jQuery は自動で処理してくれるが、JSの場合は別途CSS等で設定すること。
+		+tag("座標")
+
+	section
+		h2 .scrollTop()
+		h3 値を取得
+		pre.jq: code= 'var scrollTop = $(window).scroll();'
+		pre.js: code= 'var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;'
+		ul.sample
+			li ブラウザにより多少動きが異なるため書き方が複雑になってます。scrollTop に現在のスクロール位置が入ります。
+			li window に対して行うことが多いはずですので window のスクロール値のみ扱います。
+		h3 値を設定
+		pre.jq: code= '$(window).scrollTop(300);'
+		pre.js: code= 'window.scrollTo(0, 300);'
+		ul.sample
+			li ネイティブの方は（0,300）と最初にX座標も指定しなければなりません。横スクロールを扱わない場合は0です。
+		+tag("座標")

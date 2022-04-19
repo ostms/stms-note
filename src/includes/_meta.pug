@@ -1,4 +1,4 @@
-- let assets = "../assets"
+- let assets = "../assets/"
 block pagetitle
 	- let pagetitle = ""
 block ogpimg
@@ -18,7 +18,7 @@ meta(property="og:site_name" content="stms-note")
 meta(property="og:url" content="https://ostms.github.io/stms-code")
 if ogpimg !== ""
 	meta(property="og:image" content="https://ostms.github.io/stms-note/assets/img/"+ogpimg)
-link(rel="shortcut icon", href=`${assets}/favicon${favicon}.ico`, type="image/x-icon")
+link(rel="icon", href=`${assets}favicon${favicon}.ico`, type="image/x-icon")
 
 // Google Fonts -----
 link(rel="preconnect" href="https://fonts.googleapis.com")
@@ -27,7 +27,7 @@ link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Co
 
 
 // StyleSheet -----
-link(rel="stylesheet" href=`${assets}/style.css`)
+link(rel="stylesheet" href=`${assets}style.css`)
 
 // Highlight.js -----
 script(src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js")

@@ -11,7 +11,7 @@
     <meta property="og:site_name" content="stms-note">
     <meta property="og:url" content="https://ostms.github.io/stms-code">
     <meta property="og:image" content="https://ostms.github.io/stms-note/assets/img/pugthm.png">
-    <link rel="shortcut icon" href="../assets/favicon_pug.ico" type="image/x-icon">
+    <link rel="icon" href="../assets/favicon_pug.ico" type="image/x-icon">
     <!-- Google Fonts ------->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,7 @@
       .pug::before {content:"pug";background:#9c9;}
       .html::before {content:"html";background:#c99;}
       
+      
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G8FCPF442B"></script>
@@ -37,7 +38,7 @@
     </script>
   </head>
   <body>
-    <h1><a href="./pug.html">pug Tips</a></h1>
+    <h1><a href="">pug Tips</a></h1>
     <header><a class="tag" href="#基本">基本</a><a class="tag" href="#省略記法">省略記法</a><a class="tag" href="#変数">変数</a><a class="tag" href="#Script">Script</a><a class="tag" href="#テンプレート">テンプレート</a>
     </header>
     <main>
@@ -88,6 +89,9 @@ h1#sitename</code></pre>
         <pre class="pug"><code>code= '&lt;p&gt;あ&lt;/p&gt;\n&lt;i&gt;い&lt;/i&gt;'</code></pre>
         <pre class="html"><code>&lt;code&gt;&lt;p&gt;あ&lt;/p&gt;
 &lt;i&gt;い&lt;/i&gt;&lt;/code&gt;</code></pre>
+        <ul class="sample">
+          <li>タグ名の右横に<code>=</code>をつけて、<code>''</code>または<code>""</code>で内容を囲む</li>
+        </ul>
         <div class="area-tag"><a class="tag" href="#基本">基本</a>
         </div>
       </section>
@@ -97,6 +101,9 @@ h1#sitename</code></pre>
 	name=&quot;test&quot;
 	checked)</code></pre>
         <pre class="html"><code>&lt;input type=&quot;radio&quot; name=&quot;test&quot; checked&gt;</code></pre>
+        <ul class="sample">
+          <li>属性は例のように改行してもよい（インデントで階層構造は保つこと）</li>
+        </ul>
         <div class="area-tag"><a class="tag" href="#基本">基本</a>
         </div>
       </section>
@@ -112,6 +119,9 @@ script.
 &lt;script&gt;
 	let pug =&quot;Hello, pug!&quot;
 &lt;/script&gt;</code></pre>
+        <ul class="sample">
+          <li><code>style</code>や<code>script</code>のように、中に別言語を書くようなタグは、タグ名の末尾に <code>.</code> を付ける必要がある</li>
+        </ul>
         <div class="area-tag"><a class="tag" href="#基本">基本</a>
         </div>
       </section>
@@ -200,7 +210,7 @@ case name
         </div>
       </section>
       <section>
-        <h2>extends/block <a href="https://necosystem.hirokihomma.com/archives/121/#block3">🔗</a></h2>
+        <h2>extends <a href="https://necosystem.hirokihomma.com/archives/121/#block3">🔗</a></h2>
         <h3>_layout.pug</h3>
         <pre class="pug"><code>body
 	block content
@@ -212,6 +222,35 @@ block content
         <pre class="html"><code>&lt;body&gt;
 	&lt;h1&gt;サイト名&lt;/h1&gt;
 &lt;/body&gt;</code></pre>
+        <ul class="sample">
+          <li><code>extends</code> は 一番上に記述しないとエラーが出る。ページ構造全体を読み込むものだからかな。</li>
+        </ul>
+        <div class="area-tag"><a class="tag" href="#テンプレート">テンプレート</a>
+        </div>
+      </section>
+      <section>
+        <h2>block option</h2>
+        <h3>_layout.pug</h3>
+        <pre class="pug"><code>block section
+	h2 セクションタイトル
+	p テキスト１テキスト１</code></pre>
+        <h3>page.pug</h3>
+        <pre class="pug"><code>block append section
+	p 追加の内容</code></pre>
+        <pre class="html"><code>&lt;h2&gt;セクションタイトル&lt;/h2&gt;
+&lt;p&gt;テキスト１テキスト１&lt;/p&gt;
+&lt;p&gt;追加の内容&lt;/p&gt;</code></pre>
+        <div class="sample">
+          <ul>
+            <li><code>block</code>は呼び出されると中身が全て上書きされる（消える）仕様だが、<code>block append **</code>と書くことで、blockの中身を継承しながら呼び出し先で追記することができる。</li>
+          </ul>
+          <dl>
+            <dt><code>append</code></dt>
+            <dd>blockの<b>最後尾</b>に記述した内容を追加する</dd>
+            <dt><code>prepend</code></dt>
+            <dd>blockの<b>先頭</b>に記述した内容を追加する</dd>
+          </dl>
+        </div>
         <div class="area-tag"><a class="tag" href="#テンプレート">テンプレート</a>
         </div>
       </section>
@@ -231,8 +270,9 @@ block content
     </main>
     <footer>
           <ul class="sitelink">
-            <li><a href="./js.html">JSTips</a></li>
+            <li><a href="./js.html" title="JavaScript Tips">JSTips</a></li>
             <li><a href="./pug.html">pugTips</a></li>
+            <li><a href="./jquery.html" title="jQuery Tips">jQTips</a></li>
           </ul><a href="../">stms-note</a>
     </footer>
     <nav id="navigation">
@@ -244,8 +284,9 @@ block content
       </label>
       <ul id="toc"></ul>
           <ul class="sitelink">
-            <li><a href="./js.html">JSTips</a></li>
+            <li><a href="./js.html" title="JavaScript Tips">JSTips</a></li>
             <li><a href="./pug.html">pugTips</a></li>
+            <li><a href="./jquery.html" title="jQuery Tips">jQTips</a></li>
           </ul>
     </nav>
     <div id="modal"></div>
