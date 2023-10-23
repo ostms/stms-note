@@ -11,10 +11,10 @@ html {
 }
 
 a {
-  color: #996633;
+  color: hsl(30deg, 50%, 40%);
 }
 a:hover {
-  color: #b27334;
+  color: hsl(30deg, 55%, 45%);
   text-decoration: none;
 }
 
@@ -25,6 +25,12 @@ p {
 h1 {
   font-family: "M PLUS 1 Code", monospace;
   font-size: 3rem;
+}
+
+hr {
+  margin: 1em 0;
+  border: none;
+  border-top: 1px solid hsl(30deg, 20%, 85%);
 }
 
 dl {
@@ -42,7 +48,7 @@ dd.desc {
 
 body {
   color: #4a4444;
-  background: #e8e6e3;
+  background: hsl(30deg, 10%, 90%);
   font-size: 1.4rem;
   font-family: "Murecho", sans-serif;
 }

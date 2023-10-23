@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+    <!-- 変数リスト-->
     <meta charset="UTF-8">
     <meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,13 +11,13 @@
     <meta property="og:title" content="JavaScript Tips">
     <meta property="og:site_name" content="stms-note">
     <meta property="og:url" content="https://ostms.github.io/stms-code">
-    <link rel="icon" href="../assets/favicon_js.ico" type="image/x-icon">
+    <link rel="icon" href="/dist/assets/favicon_js.ico" type="image/x-icon">
     <!-- Google Fonts ------->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&amp;family=Murecho:wght@400;600&amp;display=swap">
     <!-- StyleSheet ------->
-    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="/dist/assets/style.css">
     <!-- Highlight.js ------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
     <!-- link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/base16/eighties.min.css")-->
@@ -24,8 +25,6 @@
     <style>
       .js::before{content:"js";background:#9C9;}
       .html::before{content:"html";background:#C99;}
-      
-      
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G8FCPF442B"></script>
@@ -324,6 +323,36 @@ clearInterval(関数);
         </ul>
         <div class="area-tag"><a class="tag" href="#処理機能">処理機能</a>
         </div>
+      </section>
+      <section>
+        <h2>for in / of</h2>
+        <h3>for...in</h3>
+        <pre class="js"><code>for( 仮変数 in 連想配列（オブジェクト） ) {
+	// 仮変数にはオブジェクトの&quot;key&quot;が入る
+}</code></pre>
+        <div class="sample">
+          <ul>
+            <li>あくまでも出力されるのは<b>キー</b>であり、バリューではない。<a href="https://qiita.com/a05kk/items/d6f49ca5bd15f045ea6c">引用元🔗</a></li>
+          </ul>
+          <pre class="js"><code>var myTeam = {
+	name: &quot;本田&quot;,
+	age: &quot;33&quot;,
+	birthplace: &quot;大阪&quot;
+}
+for( var item in myTeam ){
+	console.log(item);
+}
+// name, age, birthplace</code></pre>
+        </div>
+        <h3>for...of</h3>
+        <pre class="js"><code>for( 仮変数 of 配列/列挙可能なオブジェクト ) {
+// 仮変数の中には&quot;値&quot;が列挙される
+}</code></pre>
+        <ul class="sample">
+          <li>「for - of文」はシンプルな記述で、配列などの反復処理を行える</li>
+          <li>「for - of文」を使うには「イテラブル・オブジェクト」が含まれている必要がある</li>
+          <li>通常のオブジェクトには「イテラブル・オブジェクト」は含まれていない</li><a href="https://www.sejuku.net/blog/20228">「for – of文」の使い方と間違いやすいポイントを徹底解説！</a>
+        </ul>
       </section>
     </main>
     <footer>

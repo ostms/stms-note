@@ -42,11 +42,11 @@ section h3::before {
 }
 
 a {
-  color: #996633;
+  color: hsl(30deg, 50%, 40%);
   text-decoration: none;
 }
 a:hover {
-  color: #b27334;
+  color: hsl(30deg, 55%, 45%);
   text-decoration: underline;
 }
 
@@ -84,7 +84,7 @@ dt::after {
 
 body {
   color: #444;
-  background: #ddd9d5;
+  background: hsl(30deg, 10%, 85%);
   font-size: 1.4rem;
   font-family: "Noto Sans JP", sans-serif;
 }

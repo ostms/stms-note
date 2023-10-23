@@ -1,0 +1,109 @@
+include ../includes/_value.pug
+doctype html
+html(lang="ja")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		title background: ショートハンド - CSS3 [stms-code]
+		// Google Fonts
+		link(rel="preconnect", href="https://fonts.googleapis.com")
+		link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+		link(href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=Murecho:wght@400;600&display=swap", rel="stylesheet")
+
+		link(rel="stylesheet", href=assets+"shorthand.css")
+		link(rel="icon", href=assets+`favicon.svg`, type="image/x-icon")
+	body
+		include ../includes/_sh-header.pug
+		main
+			section.sec-title
+				h1
+					a(href="https://developer.mozilla.org/ja/docs/Web/CSS/background")
+						| background:
+
+			section.sec-a
+				h2
+					a(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-color")
+						| transparent
+				samp background-color: #333;
+				ul
+					li brown
+					li #FFFFFF00
+					li rgba(0,0,0,0.8)
+					li hsl(120,20%,80%)
+
+			section.sec-b
+				h2
+					a(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-image")
+						| url(&quot;none.jpg&quot;)
+				samp background-image: url(&quot;sample.jpg&quot;);
+
+			section.sec-c
+				h2
+					a.repeat(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-repeat")
+						| repeat
+				samp background-repeat: no-repeat;
+				ul
+					li repeat-x
+					li repeat-y
+					li space
+					li round
+
+			section.sec-d
+				h2
+					a.origin(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-origin")
+						| padding-box
+				samp background-origin: border-box;
+				ul
+					li content-box
+
+			section.sec-e
+				h2
+					a.position(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-position")
+						| 0% 0%
+				samp background-position: top 10px center;
+				ul
+					li bottom right
+					li 25% 75%
+					li left 10px top -20%
+
+			.sec-separate /
+
+			section.sec-f
+				h2
+					a.size(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-size")
+						| auto auto
+				samp background-size: cover;
+				ul
+					li contain
+					li 50% (高さ:auto)
+					li 100% 5em
+
+			section.sec-g
+				h2
+					a.attachment(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-attachment")
+						| scroll
+				samp background-attachment: fixed;
+				ul
+					li local
+					li scroll, local
+
+			section.sec-h
+				h2
+					a.clip(href="https://developer.mozilla.org/ja/docs/Web/CSS/background-clip")
+						| border-box
+				samp background-clip: text;
+				ul
+					li padding-box
+					li content-box
+
+			div.sec-separate ;
+		section
+			cite: ol
+				li: a(href="https://qiita.com/katsunory/items/1e952d3f5ab2a0306c4d")
+					| backgroundまとめ。ショートハンド、複数指定、各プロパティ - Qiita
+				li: a(href="https://webliker.info/css-short-hand/")
+					| CSSショートハンドのチートシート - Webliker
+		footer
+			p: small
+				| 23.09.13#[br]
+				a(href=local) stms-code

@@ -1,0 +1,216 @@
+@use "_value" as *
+// ------------------------------------------------------------
+// カラー設定
+// ------------------------------------------------------------
+$c_gray: (bg: #ECEFF1, text: #37474F)
+$c_lime: (bg: #F7FAE0, text: #827717)
+$c_green: (bg: #E8F5E9, text: #1B5E20)
+$c_cyan: (bg: #E0F7FA, text: #006064)
+$c_blue: (bg: #E3F2FD, text: #0D47A1)
+$c_purple: (bg: #EDE7F6, text: #311B92)
+$c_pink: (bg: #FCE4EC, text: #880E4F)
+$c_orange: (bg: #FBE9E7, text: #BF360C)
+
+// 矢印の色を指定
+@mixin arrowColor($-color)
+	border-top-color: $-color
+
+// カラーテーマをセット -----
+@mixin colorTheme($-name)
+	$light: map-get($-name, bg)
+	$dark: map-get($-name, text)
+	background: $light
+	color: $dark
+	& samp, & li
+		background: $dark
+		color: $light
+	& samp::before
+		+arrowColor($dark)
+
+.sec-a
+	+colorTheme($c_gray)
+.sec-b
+	+colorTheme($c_lime)
+.sec-c
+	+colorTheme($c_green)
+.sec-d
+	+colorTheme($c_cyan)
+.sec-e
+	+colorTheme($c_blue)
+.sec-f
+	+colorTheme($c_purple)
+.sec-g
+	+colorTheme($c_pink)
+.sec-h
+	+colorTheme($c_orange)
+
+
+// ------------------------------------------------------------
+// 変数、MIXIN
+// ------------------------------------------------------------
+$space: 0.5em
+
+// 矢印を作成 -----
+@mixin arrowSize($-size: 6px)
+	content: ""
+	display: block
+	position: absolute
+	bottom: -$-size * 2
+	left: 50%
+	width: $-size
+	height: $-size
+	border: $-size solid transparent
+
+// 自作のツールチップ -----
+@mixin floatTips
+	display: block
+	position: absolute
+	white-space: nowrap
+	left: 50%
+	transform: translateX(-50%)
+	transition: opacity 0.5s
+	opacity: 0
+	visibility: hidden
+
+// @mixin sp
+// 	@media screen and (max-width: 1024px)
+// 		@content
+
+
+// ------------------------------------------------------------
+// 要素CSS
+// ------------------------------------------------------------
+*, *::before, *::after
+	box-sizing: border-box
+
+html
+	scroll-behavior: smooth
+	font-size: 65%
+
+body
+	color: #4a4444
+	@extend %font-main
+	font-size: 1.6rem
+	line-height: 1.5
+	text-align: center
+	height: 100vh
+	margin: 0
+	padding: 0
+	& > header
+		height: 25vh
+	& > main
+		padding: 20vh 0
+	& > section
+		height: 15vh
+
+
+a
+	color: inherit
+	text-decoration: none
+	&:hover
+		text-decoration: underline
+
+h1, h2, h3, h4, h5, h6
+	font-size: inherit
+	font-weight: inherit
+	margin: 0
+	padding: 0
+
+nav
+	font-size: 1.4rem
+	@extend %font-logo
+	ul
+		padding: 0
+		list-style: circle
+		display: flex
+		justify-content: center
+	li
+		margin-left: 2em
+		text-indent: -.6em
+
+// サイト名部分
+figcaption
+	@extend %font-logo
+	font-weight: bold
+	a, a:hover
+		color: inherit
+		text-decoration: none
+
+main
+	font-family: monospace
+	display: flex
+	flex-wrap: wrap
+	justify-content: center
+	ul
+		+floatTips
+		top: 2em
+		padding-top: 1em
+	li
+		padding: $space
+
+samp
+	+floatTips
+	top: -3em
+	padding: $space
+	&::before
+		+arrowSize
+
+section
+	position: relative
+	margin-right: $space
+	padding: $space
+	&:hover samp, &:hover ul
+		visibility: visible
+		opacity: 1
+		z-index: 1
+
+.sec-separate, .sec-title
+	padding: $space 0
+	margin-right: $space
+
+
+cite
+	display: inline-block
+	font-size: 1.4rem
+	text-align: left
+
+small
+	font-family: 'M PLUS 1 Code', monospace
+	a
+		font-weight: bold
+
+body > *
+	// border: solid 1px red
+
+// ホバー ツールチップ設定
+// ------------------------------------------------------------
+section:hover
+	samp, ul
+		visibility: visible
+		opacity: 1
+		z-index: 1
+
+
+
+
+// ------------------------------------------------------------
+// SP設定
+// ------------------------------------------------------------
+@media screen and (max-width: 1024px)
+	body
+		& > header
+			height: 15vh
+		& > main
+			padding: calc( 80vh - 82rem ) 0
+		& > section
+			height: 10vh
+	main
+		flex-direction: column
+		// margin: 15vh 0
+
+	main > *
+		width: 50%
+		&:not(main > *:first-child)
+			margin: ($space / 2) auto
+	section
+		margin-right: initial

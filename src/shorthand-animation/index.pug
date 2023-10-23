@@ -1,0 +1,107 @@
+doctype html
+html(lang="ja")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		title animation: ショートハンド - CSS3 [stms-code]
+		// Google Fonts
+		link(rel="preconnect", href="https://fonts.googleapis.com")
+		link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+		link(href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&family=Murecho:wght@400;600&display=swap", rel="stylesheet")
+
+		link(rel="stylesheet", href="../assets/shorthand.css")
+		link(rel="icon", href=`../assets/favicon.svg`, type="image/x-icon")
+	body
+		include ../includes/_sh-header.pug
+		main
+			section.sec-title
+				h1
+					a(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation")
+						| animation:
+
+			section.sec-a
+				h2
+					a(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation-name")
+						| name
+				samp animation-name: fadeOut;
+				ul
+					li @keyframesで作成した名前
+					li fadeIn
+					li slide-left
+					li scroll
+
+			section.sec-b
+				h2
+					a(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation-duration")
+						| duration
+				samp animation-duration: 1s;
+				ul
+					li アニメ再生時間
+					li 0s
+					li 500ms
+
+			section.sec-c
+				h2
+					a.repeat(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation-timing-function")
+						| timing-function
+				samp animation-timing-function: ease;
+				ul
+					li ease (0.25, 0.1, 0.25, 1)
+					li linear (0, 0, 1, 1)
+					li ease-in (0.42, 0, 1, 1)
+					li ease-out (0, 0, 0.58, 1)
+					li ease-in-out (0.42, 0, 0.58, 1)
+					li steps
+
+			section.sec-d
+				h2
+					a.origin(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation-delay")
+						| delay
+				samp animation-delay: 5s;
+				ul
+					li 開始までの待機時間
+					li -1500ms
+					li 10s, 350ms
+
+			section.sec-e
+				h2
+					a.position(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation-iteration-count")
+						| iteration-count
+				samp iteration-count: infinite;
+				ul
+					li *アニメの再生回数
+					li 2.4, 0, infinite
+
+			section.sec-f
+				h2
+					a.size(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation-direction")
+						| direction
+				samp animation-direction: reverse;
+				ul
+					li アニメの再生方向
+					li normal
+					li reverse
+					li alternate
+					li alternate-reverse
+
+			section.sec-g
+				h2
+					a.attachment(href="https://developer.mozilla.org/ja/docs/Web/CSS/animation-fill-mode")
+						| fill-mode
+				samp animation-fill-mode: both;
+				ul
+					li アニメ終了前後の維持
+					li none
+					li forwards
+					li backwards
+					li both
+			.sec-separate ;
+		footer
+			cite: ol
+				li: a(href="https://qiita.com/katsunory/items/1e952d3f5ab2a0306c4d")
+					| backgroundまとめ。ショートハンド、複数指定、各プロパティ - Qiita
+				li: a(href="https://webliker.info/css-short-hand/")
+					| CSSショートハンドのチートシート - Webliker
+			p: small
+				| 23.09.13#[br]
+				a(href="/") stms-code

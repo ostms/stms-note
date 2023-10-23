@@ -1,0 +1,224 @@
+//- mixinは_layout.pugに記載。使い方は +ミックスイン名("引数1","引数2")
+extends ../includes/_layout.pug
+
+block favicon
+	- let favicon = "_js"
+block pagetitle
+	- pagetitle ="JavaScript"
+block style
+	style.
+		.js::before{content:"js";background:#9C9;}
+		.html::before{content:"html";background:#C99;}
+//- block h1
+	h1: a(href="") #{pagetitle} Tips
+block prepend header
+	- let tagname = ["基本仕様","DOM操作","処理機能"]
+
+block contents
+	section
+		h2 共通サンプル
+		.sample
+			+code("html",`<div id="box">\n\t<a href="./" target="_target" class="sample">リンク</a>\n</div>`)
+			+code("js",`let 親 = document.getElementsByID('box');\nlet 要素 = document.querySelector('.sample');`)
+
+	section
+		h2 型
+		h3 文字列(String)
+		pre.js: code= `let string = "ハロー";\n\t\tstring = 'ハロー';`
+		h3 整数(Number)
+		pre.js: code= `let number = 10;\n\t\tnumber = 8.7;`
+		h3 真偽値(Boolean)
+		pre.js: code= `let boolean = true;\n\t\tboolean = false;`
+		h3 配列(Array)
+		pre.js: code= `let array = [123, "あいう"];\n\t\tarray[0]\t// 123`
+		ul.sample
+			li 空の配列型宣言は
+				code 変数名 = [];
+			li 配列の中身には インデックス番号(0始まり) が振られており、変数名[数値]でアクセスする。
+		h3 オブジェクト(Object)
+		pre.js: code= `let object = {test: "テスト"};\n\t\tobject.test\t// "テスト"\n\t\tobject['test']\t// "テスト"`
+		ul.sample
+			li JSでは#[b 関数もオブジェクト]である。#[code { }]で囲まれてるものね。
+		+tag("基本仕様")
+
+	section
+		h2 式と演算子
+		h3 等価演算子 #[code ==] or #[code !=]
+		pre.js: code= `1 == "1" // true\n0 == false // true\n"a" != "a" // false\n1 != "1" // false`
+		.sample
+			ul: li 左と右が異なるケースは #[code != (!==)] で指定する。
+		h3 OR#[code (||)] - 片方がtrueならばtrue
+		pre.js: code= `10 < 20 || "Hello" == "こんにちは"\n// true`
+		h3 AND#[code (&&)] - 両方がtrueならばtrue
+		pre.js: code= `10 < 20 && "Hello" == "Hello"\n// true`
+		.sample
+			h3 大なり小なり
+			+code("js",`8 >  2 == true\t\t|\t "5"> 5 == true //型が違ってもtrueとなる\n3 >= 3 == true`)
+		+tag("基本仕様")
+
+	section
+		h2 識別子のルール
+		ul.sample
+			li JSでは「変数名」や「関数名」のことを#[b 「識別子」]と呼ぶ。
+		h3 使用できる文字
+		pre: code.language-javascript
+			| ・Unicode文字, アンダーバー(_), ドル記号($)
+			| ・大文字と小文字は区別される
+		h3 使用できない文字
+		pre: code ・ハイフン(-), 1文字目に数字(0～9), 変数名にJSの予約語
+		blockquote
+			h3 変数名、関数名のサンプル
+			pre: code
+				| - $(value) => { document.querySelector(value); }
+				| キャメルケース(ローワーキャメルケース)
+				| - userName,	myTotalScore2022
+				| パスカルケース(アッパーキャメルケース)
+				| - UserName,	MyTotalScore2022
+				| スネークケース
+				| - user_name,	my_total_score2022
+				| 定数 (大文字+スネーク)
+				| - MAX_SIZE = 10;
+				| 日本語も使用できる
+				| - 身長 = 180;	幅 * 高さ
+		+tag("基本仕様")
+
+	section
+		h2 属性値の操作
+		h3 属性値を取得する
+		pre.js: code= `要素.href\t要素.src\n要素.className\t// classはNameが付くので注意`
+		h3 属性値を設定する
+		pre.js: code= `要素.属性名 = "設定値"\n要素.href = "index.html"\n要素.className = "wrapper";`
+		ul.sample
+			li HTML要素は取得するとオブジェクト型になっているため、#[code .属性名]でそのまま値を扱うことができる
+		h3 取得.getAttribute(#[code.modal "属性名"])
+		pre.js: code= `要素.getAttribute("class");`
+		h3 設定.setAttribute(#[code.modal "属性名","設定値"])
+		pre.js: code= `要素.setAttribute("class", "wrapper");`
+		ul.sample
+			li #[code get/setAttribute()]で操作することもできる
+		+tag("基本仕様")
+
+	section
+		h2 要素の取得
+		pre.mycode.js
+			| #[span.hljs-comment /*子*/] 要素#[span.hljs-variable .children]
+			| #[span.hljs-comment /*親*/] 要素#[span.hljs-variable .parentNode]
+			| #[span.hljs-comment /*兄*/] 要素#[span.hljs-variable .previousElementSibling]
+			| #[span.hljs-comment /*弟*/] 要素#[span.hljs-variable .nextElementSibling]
+		h3 祖先要素の取得
+		+code("js",`子要素.closest('CSSセレクタ');`)
+		+tag("DOM操作")
+
+	section
+		h2 要素の追加
+		h3 親要素内の最後
+		pre.js: code= `親.appendChild(追加要素)\n親.append(要素A,テキスト...)\n親.insertBefore(追加要素, null)`
+		h3 指定した要素の前
+		pre.js: code= `親.insertBefore(追加要素, 指定要素)`
+		h3 指定した要素の後
+		pre.js: code= `親.insertBefore(追加要素, 指定要素.nextSibling)`
+		h3 親要素の先頭
+		pre.js: code= `親.prepend(要素,テキスト...)\n親.insertBefore(追加要素, 親.firstChild)`
+		+tag("DOM操作")
+
+	section
+		h2 要素の複製
+		pre.js: code= `要素.cloneNode(true);`
+		.sample
+			h3 sample.html
+			+code("html",`<body>\n\t<img src="sample.jpg">\n\t<div id="modal"></div>\n</body>`)
+			h3 script.js
+			+code("js",`const モーダル = document.getElementById('modal');\nconst 画像 = document.getElementsByTagName('img');\n\nlet クローン = 画像[0].cloneNode(true);\t//<img src="sample.jpg">が複製される\n\nモーダル.appendChild(クローン);`)
+			ul: li 要素の取得、追加ではオリジナルの要素が消えてしまう（移動する）ため、モーダルに表示したいときなどは複製を使う
+			h3 結果.html
+			+code("html",`<body>\n\t<img src="sample.jpg">\n\t<div id="modal">\n\t\t<img src="sample.jpg"> <!--複製されたimg-->\n\t</div>\n</body>`)
+		+tag("DOM操作")
+
+	section
+		h2 要素の削除
+		pre.js: code= `要素.remove();\n親.removeChild(指定);`
+		+tag("DOM操作")
+
+	section
+		h2 要素内テキストの操作
+		h3 HTMLを含まない場合
+		pre.js: code= `要素.textContent //取得\n要素.textContent ="文字列の設定"`
+		h3 HTMLタグを含む文字列
+		pre.js: code= `要素.innerHTML //取得\ndocument.createElement("p");\ndocument.createTextNode("テスト");\n\ntag.appendChild(text)`
+		+tag("DOM操作")
+
+	section
+		h2 複数の要素を保持
+		h3 DocumentFragment
+		pre.js: code= `置場 = document.createDocumentFragment();\n置場.append(要素1, 要素2...);\n親要素.appendChild(置場);`
+		.sample
+			ul: li 複数の要素ノードを一時的にストックできる仮の要素ノードとして使える。
+				li 最後に本文へ追加する際は、Fragmentの中身のみが追加される。
+		+tag("DOM操作")
+
+	section
+		h2 classの操作
+		h3 新しいclass名を追加
+		pre.js: code= `要素.classList.add("open");`
+		h3 class名を削除
+		pre.js: code= `要素.classList.remove("open");`
+		h3 classの付与をトグル
+		pre.js: code= `要素.classList.toggle("open");`
+		h3 class名を一括編集
+		pre.js: code= `要素.className = element + "_li"\n// class="element_li"`
+		+tag("DOM操作")
+
+	section
+		h2 クリックイベント
+		pre.js: code= `要素.addEventListener("click", 処理関数...);`
+		.sample
+			h3 サンプル
+			+code("js",`要素.addEventListener("click", (イベント) => {\n\tイベント.target.textContent\n\t// イベント=発火対象 });`)
+		+tag("処理機能")
+
+	section
+		h2 HTMLCollection と NodeList
+		h3 HTMLCollection
+		+code("js",`document.getElementsByTagName\ndocument.getElementsByClassName\ndocument.getElementsByName`)
+		ul.sample
+			li #[code HTMLCollection]は「動的」な 配列風オブジェクト、DOMの変更が随時反映される
+			li #[code foreach]が使えない
+		h3 NodeList
+		+code("js",`document.querySelectorAll\nNode.childNodes`)
+		ul.sample
+			li #[code NodeList]は「静的」な配列風オブジェクト、DOMの変更が反映されない
+			li #[code childNodes]の戻り値である#[code NodeList]は動的なので注意
+			li #[code foreach]を使用できる
+		+tag("基本仕様","DOM操作")
+
+	section
+		h2 タイマー処理
+		.sample
+			h3 実行したい関数(式)
+			+code("js",`const 関数 = function(testA,testB){\n\tconsole.log(testA + testB);\n}`)
+		h3 setTimeout / setInterval(#[span.modal 呼出関数, 時間ms, 引数...])
+		+code("js",`setTimeout(関数,3000,"こん","にちは");\n// 3秒後にログが 1回 実行される\nsetInterbal(関数,10000,"さよ","なら");\n// 10秒毎に関数が 繰り返し 実行される\n`)
+		ul.sample
+			li #[code setTimeout()]は指定の時間後に 1回のみ 実行したい場合に使う。
+			li #[code setInterval()]は時間毎に処理を 繰り返し 実行したいとき使用する。
+			li 第3オプションの引数は、コールバック関数の引数が必要なときに記述する
+		h3 clearTimeout / clearInterval(#[span.modal 取り消したい関数])
+		+code("js",`clearTimeout(関数);\n// 関数のsetTimeoutが取り消される\nclearInterval(関数);\n// 関数のsetIntervalが取り消される`)
+		ul.sample
+			li タイマーを解除したい場合はどちらも対応するclearを指定する。setIntervalでよく使うだろう。
+		+tag("処理機能")
+
+	section
+		h2 for in / of
+		h3 for...in
+		pre.js: code= 'for( 仮変数 in 連想配列（オブジェクト） ) {\n\t// 仮変数にはオブジェクトの"key"が入る\n}'
+		.sample
+			ul: li あくまでも出力されるのは#[b キー]であり、バリューではない。#[a(href="https://qiita.com/a05kk/items/d6f49ca5bd15f045ea6c") 引用元🔗]
+			pre.js: code= 'var myTeam = {\n\tname: "本田",\n\tage: "33",\n\tbirthplace: "大阪"\n}\nfor( var item in myTeam ){\n\tconsole.log(item);\n}\n// name, age, birthplace'
+		h3 for...of
+		pre.js: code= 'for( 仮変数 of 配列/列挙可能なオブジェクト ) {\n// 仮変数の中には"値"が列挙される\n}'
+		ul.sample
+			li 「for - of文」はシンプルな記述で、配列などの反復処理を行える
+			li 「for - of文」を使うには「イテラブル・オブジェクト」が含まれている必要がある
+			li 通常のオブジェクトには「イテラブル・オブジェクト」は含まれていない
+			a(href="https://www.sejuku.net/blog/20228") 「for – of文」の使い方と間違いやすいポイントを徹底解説！

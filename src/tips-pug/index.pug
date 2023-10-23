@@ -1,0 +1,149 @@
+extends ../includes/_layout.pug
+
+block pagetitle
+	- pagetitle = "pug"
+block favicon
+	- let favicon = "_pug"
+block ogpimg
+	- ogpimg = "pugthm.png"
+block style
+	style.
+		.pug::before {content:"pug";background:#9c9;}
+		.html::before {content:"html";background:#c99;}
+
+
+//- BODY ------------------------------------------
+
+block prepend header
+	- let tagname = ["基本","省略記法","変数","Script","テンプレート"]
+
+block contents
+	section
+		h2 タグとテキスト
+		pre.pug: code= 'p テキスト\nul: li リスト\np あい#[strong う]えお'
+		pre.html: code= "<p>テキスト</p>\n<ul><li>リスト</li></ul>\n<p>あい<b>う</b>えお</p>"
+		+tag("基本")
+
+	section
+		h2 複数行テキスト
+		pre.pug: code= 'p\n\t| 複数行のテキスト\n\tbr\n\t| インデントは自由'
+		pre.html: code= '<p>\n\t複数行のテキスト<br>\n\tインデントは自由\n</p>'
+		+tag("基本")
+
+	section
+		h2 クラスとID
+		pre.pug: code= 'p.test.red\nh1#sitename'
+		pre.html: code= '<P class="test red"></p>\n<h1 id="sitename"></h1>'
+		+tag("基本")
+
+	section
+		h2 divの省略
+		pre.pug: code
+			| #app
+			| .test
+		pre.html: code= '<div id="app">\n<div class="test">'
+		+tag("省略記法")
+
+	section
+		h2 エスケープ
+		pre.pug: code= "code= '<p>あ</p>\\n<i>い</i>'"
+		pre.html: code= '<code><p>あ</p>\n<i>い</i></code>'
+		ul.sample
+			li タグ名の右横に#[code =]をつけて、#[code '']または#[code ""]で内容を囲む
+		+tag("基本")
+
+	section
+		h2 属性(プロパティ)
+		pre.pug: code= 'input(type="radio"\n\tname="test"\n\tchecked)'
+		pre.html: code= '<input type="radio" name="test" checked>'
+		ul.sample
+			li 属性は例のように改行してもよい（インデントで階層構造は保つこと）
+		+tag("基本")
+
+	section
+		h2 scriptやstyle
+		pre.pug: code= 'style.\n\ta {color: red}\nscript.\n\tlet pug = "Hello, pug!"'
+		pre.html: code= '<style>\n\ta {color: red}\n</style>\n<script>\n\tlet pug ="Hello, pug!"\n</script>'
+		ul.sample
+			li #[code style]や#[code script]のように、中に別言語を書くようなタグは、タグ名の末尾に #[code .] を付ける必要がある
+		+tag("基本")
+
+	section
+		h2 変数
+		pre.pug: code= '- var pagename= "ページ"\n\ntitle #{pagename}'
+		pre.html: code= '<title>ページ</title>'
+		+tag("変数")
+
+	section
+		h2 変数(プロパティ)
+		pre.pug: code= '- var clsname= "aaa"\n\np(class=clsname)\np(class=`${clsname}`)'
+		pre.html: code= '<p class="aaa"></p>\n<p class="aaa"></p>'
+		+tag("変数")
+
+	section
+		h2 forループ
+		pre.pug: code= '- for (var x=0; x<3; x++)\n\tli ナンバー#{x}'
+		pre.html: code= '<li>ナンバー0</li>\n<li>ナンバー1</li>\n<li>ナンバー2</li>'
+		+tag("Script")
+
+	section
+		h2 eachループ
+		pre.pug: code= 'each 変数 in ["HTML","CSS","JS"]\n\tli #{変数}'
+		pre.html: code= '<li>HTML</li>\n<li>CSS</li>\n<li>JS</li>'
+		+tag("Script")
+
+	section
+		h2 if分岐
+		pre.pug: code= '- var name = "うさ"\nif name=="やぎ"\n\tp わたしはやぎです\nelse if name=="ヒツジ"\n\tp わたしはヒツジです\nelse\n\tp やぎでもヒツジでもない？'
+		pre.html: code= '<p>やぎでもヒツジでもない？</p>'
+		+tag("Script")
+
+	section
+		h2 switch分岐
+		pre.pug: code= '- var name = "うさ"\ncase name\n\twhen "やぎ"\n\t\tp わたしはやぎです\n\t\tbreak\n\twhen "ヒツジ"\n\t\tp わたしはヒツジです\n\t\tbreak\n\tdefault\n\t\tp やぎでもヒツジでもない？'
+		pre.html: code= '<p>やぎでもヒツジでもない？</p>'
+		+tag("Script")
+
+	section
+		h2 コメントアウト
+		pre.pug: code= '// HTMLに出力される\n\n//- pugのみのコメント'
+		pre.html: code= '<!-- HTMLに出力される -->'
+		+tag("基本")
+
+	section
+		h2 include
+		pre.pug: code= 'include assets/_header.pug'
+		+tag("テンプレート")
+
+	section
+		h2 extends #[a(href="https://necosystem.hirokihomma.com/archives/121/#block3") 🔗]
+		h3 _layout.pug
+		pre.pug: code= 'body\n\tblock content\n\t\th1 デフォルトタイトル'
+		h3 index.pug
+		pre.pug: code= 'extends _layout.pug\nblock content\n\th1 サイト名'
+		pre.html: code= '<body>\n\t<h1>サイト名</h1>\n</body>'
+		ul.sample
+			li #[code extends] は 一番上に記述しないとエラーが出る。ページ構造全体を読み込むものだからかな。
+		+tag("テンプレート")
+
+	section
+		h2 block option
+		h3 _layout.pug
+		pre.pug: code= 'block section\n\th2 セクションタイトル\n\tp テキスト１テキスト１'
+		h3 page.pug
+		pre.pug: code= 'block append section\n\tp 追加の内容'
+		pre.html: code= '<h2>セクションタイトル</h2>\n<p>テキスト１テキスト１</p>\n<p>追加の内容</p>'
+		.sample
+			ul: li #[code block]は呼び出されると中身が全て上書きされる（消える）仕様だが、#[code block append **]と書くことで、blockの中身を継承しながら呼び出し先で追記することができる。
+			dl
+				dt #[code append]
+				dd blockの#[b 最後尾]に記述した内容を追加する
+				dt #[code prepend]
+				dd blockの#[b 先頭]に記述した内容を追加する
+		+tag("テンプレート")
+
+	section
+		h2 mixin
+		pre.pug: code= 'mixin list(url,title)\n\tul.nav_list\n\t\tli: a(href=`${url}`) #{title}\n\n+list("./",HOME)'
+		pre.html: code= '<ul>\n\t<li><a href="./">HOME</a></li>\n</ul>'
+		+tag("Script")
