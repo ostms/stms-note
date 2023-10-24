@@ -4,7 +4,7 @@
   "description": "自分用コーディング言語Tips集",
   "main": "index.js",
   "scripts": {
-    "pug:watch": "pug ./src --hierarchy -o ./dist -P -w",
+    "pug:watch": "pug ./src --hierarchy -o ./docs -P -w",
     "sass:watch": "sass ./src/sass:./assets --no-source-map --style=compressed --watch"
   },
   "keywords": [],
